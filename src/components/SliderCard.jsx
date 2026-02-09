@@ -6,12 +6,14 @@ const SliderCard = ({ slide, isActive, onClick }) => {
       }`}
       onClick={onClick}
       style={{ 
-        filter: isActive ? 'blur(0px)' : 'blur(2px)',
         boxShadow: '0 10px 40px rgba(0, 0, 0, 0.3)'
       }}
     >
-      {/* Background Image/Video */}
-      <div className="absolute inset-0 overflow-hidden">
+      {/* Background Image/Video - Only this gets blurred */}
+      <div 
+        className="absolute inset-0 overflow-hidden transition-all duration-700"
+        style={{ filter: isActive ? 'blur(0px)' : 'blur(8px) brightness(0.7)' }}
+      >
         <img
           src={slide.imageUrl}
           alt={slide.title}
@@ -37,7 +39,13 @@ const SliderCard = ({ slide, isActive, onClick }) => {
             </div>
           ) : (
             // Vertical Badge (Inactive - Top Center)
-            <div className="bg-gray-800/60 backdrop-blur-sm rounded-lg" style={{ padding: '16px 12px' }}>
+            <div 
+              className="bg-gray-800/60 backdrop-blur-sm rounded-lg transition-transform duration-300 hover:scale-110" 
+              style={{ 
+                padding: '16px 12px',
+                transform: 'scale(1.15)'
+              }}
+            >
               <span
                 className="text-white text-xs font-medium tracking-wider block"
                 style={{ 
