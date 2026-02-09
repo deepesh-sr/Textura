@@ -1,16 +1,15 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import Navbar from './components/Navbar'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-    <p className='text-5xl'>
-    Deepesh this side.
-    </p>
+      <Navbar />
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <p className='text-5xl font-[--font-family-inter]'>
+          Deepesh this side.
+        </p>
+      </main>
     </>
   )
 }
