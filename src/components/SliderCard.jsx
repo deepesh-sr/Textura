@@ -1,18 +1,21 @@
 const SliderCard = ({ slide, isActive, onClick }) => {
   return (
     <div
-      className={`relative transition-all duration-700 ease-in-out cursor-pointer ${
-        isActive ? 'flex-3' : 'flex-[0.5]'
+      className={`relative transition-all duration-700 ease-in-out cursor-pointer rounded-2xl overflow-hidden group ${
+        isActive ? 'flex-3' : 'flex-[0.5] hover:flex-[0.6]'
       }`}
       onClick={onClick}
-      style={{ filter: isActive ? 'blur(0px)' : 'blur(2px)' }}
+      style={{ 
+        filter: isActive ? 'blur(0px)' : 'blur(2px)',
+        boxShadow: '0 10px 40px rgba(0, 0, 0, 0.3)'
+      }}
     >
       {/* Background Image/Video */}
       <div className="absolute inset-0 overflow-hidden">
         <img
           src={slide.imageUrl}
           alt={slide.title}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
         {/* Overlay */}
         <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent"></div>
