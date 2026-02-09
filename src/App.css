@@ -1,5 +1,22 @@
 @import "tailwindcss";
 
+/* Font Face Declarations */
+@font-face {
+  font-family: 'Inter Tight';
+  src: url('./assets/fonts/InterTight-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('./assets/fonts/Roboto.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   /* Base Colors - Black & White */
   --color-pure-black: #000000;
@@ -24,4 +41,8 @@
   --color-gradient-vertical: linear-gradient(180deg, #F2F2F2 0%, #000000 100%);
   --color-gradient-horizontal: linear-gradient(90deg, #F2F2F2 0%, #000000 100%);
   --color-gradient-radial: radial-gradient(circle, #F2F2F2 0%, #000000 100%);
+  
+  /* Font Families */
+  --font-family-inter: 'Inter Tight', sans-serif;
+  --font-family-roboto: 'Roboto', sans-serif;
 }
