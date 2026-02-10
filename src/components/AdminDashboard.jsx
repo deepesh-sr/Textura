@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Container from './Container';
 
-const AdminDashboard = () => {
+const AdminDashboard = ({ onClose }) => {
   const [sliders, setSliders] = useState([]);
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -157,9 +157,9 @@ const AdminDashboard = () => {
   if (loading) return <div style={{ padding: '80px', textAlign: 'center', fontSize: '18px', color: '#666666' }}>Loading Admin Panel...</div>;
 
   return (
-    <section id="cms" className="bg-gray-50 border-t border-gray-200" style={{ padding: '96px 0', backgroundColor: '#F9FAFB' }}>
+    <section id="cms" className="bg-gray-50 border-t border-gray-200" style={{ padding: '96px 0', backgroundColor: '#F9FAFB', minHeight: '80vh' }}>
       <Container>
-        <div style={{ marginBottom: '48px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+        <div style={{ marginBottom: '48px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <div>
             <h2 className="text-3xl font-bold mb-4 text-pure-black" style={{ fontFamily: "'Inter Tight', sans-serif", fontSize: '32px', marginBottom: '16px', color: '#000000' }}>
               Textura CMS
@@ -167,16 +167,25 @@ const AdminDashboard = () => {
             <p className="text-gray-600" style={{ fontSize: '16px', color: '#4D4D4D' }}>Manage your website content and publishing from here.</p>
           </div>
           
-          <div style={{ display: 'flex', gap: '8px', backgroundColor: '#E5E7EB', padding: '4px', borderRadius: '12px' }}>
+          <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+            <div style={{ display: 'flex', gap: '4px', backgroundColor: '#E5E7EB', padding: '4px', borderRadius: '12px' }}>
+              <button 
+                onClick={() => { setActiveTab('sliders'); setEditMode(false); }}
+                style={{ padding: '8px 20px', borderRadius: '10px', fontSize: '14px', fontWeight: '600', border: 'none', cursor: 'pointer', backgroundColor: activeTab === 'sliders' ? '#FFFFFF' : 'transparent', color: activeTab === 'sliders' ? '#000000' : '#4D4D4D', boxShadow: activeTab === 'sliders' ? '0 2px 4px rgba(0,0,0,0.1)' : 'none' }}>
+                Sliders
+              </button>
+              <button 
+                onClick={() => { setActiveTab('blogs'); setEditMode(false); }}
+                style={{ padding: '8px 20px', borderRadius: '10px', fontSize: '14px', fontWeight: '600', border: 'none', cursor: 'pointer', backgroundColor: activeTab === 'blogs' ? '#FFFFFF' : 'transparent', color: activeTab === 'blogs' ? '#000000' : '#4D4D4D', boxShadow: activeTab === 'blogs' ? '0 2px 4px rgba(0,0,0,0.1)' : 'none' }}>
+                Blog Posts
+              </button>
+            </div>
+            
             <button 
-              onClick={() => { setActiveTab('sliders'); setEditMode(false); }}
-              style={{ padding: '8px 20px', borderRadius: '10px', fontSize: '14px', fontWeight: '600', border: 'none', cursor: 'pointer', backgroundColor: activeTab === 'sliders' ? '#FFFFFF' : 'transparent', color: activeTab === 'sliders' ? '#000000' : '#4D4D4D', boxShadow: activeTab === 'sliders' ? '0 2px 4px rgba(0,0,0,0.1)' : 'none' }}>
-              Sliders
-            </button>
-            <button 
-              onClick={() => { setActiveTab('blogs'); setEditMode(false); }}
-              style={{ padding: '8px 20px', borderRadius: '10px', fontSize: '14px', fontWeight: '600', border: 'none', cursor: 'pointer', backgroundColor: activeTab === 'blogs' ? '#FFFFFF' : 'transparent', color: activeTab === 'blogs' ? '#000000' : '#4D4D4D', boxShadow: activeTab === 'blogs' ? '0 2px 4px rgba(0,0,0,0.1)' : 'none' }}>
-              Blog Posts
+              onClick={onClose}
+              style={{ padding: '12px 24px', backgroundColor: '#000000', color: '#FFFFFF', borderRadius: '12px', fontWeight: 'bold', cursor: 'pointer', border: 'none' }}
+            >
+              Back to Site
             </button>
           </div>
         </div>
