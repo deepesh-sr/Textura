@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react';
 import Container from './Container';
+import ReactQuill from 'react-quill-new';
+import 'react-quill-new/dist/quill.snow.css';
 
 const AdminDashboard = ({ onClose }) => {
   const [sliders, setSliders] = useState([]);
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState('sliders'); // 'sliders' or 'blogs'
+  const [activeTab, setActiveTab] = useState('sliders');
+  const [showPreview, setShowPreview] = useState(false);
+  const [seoScore, setSeoScore] = useState(0);
   
   const [editMode, setEditMode] = useState(false);
   const [currentSlider, setCurrentSlider] = useState({
@@ -152,7 +156,21 @@ const AdminDashboard = ({ onClose }) => {
     setCurrentBlog({ title: '', slug: '', content: '', metaTitle: '', metaDescription: '', featuredImage: '', status: 'draft' });
     setEditMode(false);
     setError('');
+    setSeoScore(0);
   };
+
+  // Basic SEO Score Calculation
+  useEffect(() => {
+    if (activeTab !== 'blogs') return;
+    let score = 0;
+    if (currentBlog.title?.length > 10) score += 20;
+    if (currentBlog.slug?.length > 5) score += 15;
+    if (currentBlog.content?.length > 200) score += 25;
+    if (currentBlog.metaTitle?.length > 30) score += 15;
+    if (currentBlog.metaDescription?.length > 50) score += 15;
+    if (currentBlog.featuredImage) score += 10;
+    setSeoScore(score);
+  }, [currentBlog, activeTab]);
 
   if (loading) return <div style={{ padding: '80px', textAlign: 'center', fontSize: '18px', color: '#666666' }}>Loading Admin Panel...</div>;
 
@@ -327,27 +345,26 @@ const AdminDashboard = ({ onClose }) => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px' }}>Slug (URL)</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="the-future-of-cms"
-                      style={{ width: '100%', padding: '16px', border: '1px solid #CCCCCC', borderRadius: '12px' }}
-                      value={currentBlog.slug}
-                      onChange={(e) => setCurrentBlog({ ...currentBlog, slug: e.target.value })}
-                    />
+                    <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px' }}>SEO Score (Textura Insights)</label>
+                    <div style={{ width: '100%', height: '54px', backgroundColor: '#F3F4F6', borderRadius: '12px', display: 'flex', alignItems: 'center', padding: '0 20px', border: '1px solid #E5E7EB' }}>
+                      <div style={{ flex: 1, height: '8px', backgroundColor: '#E5E7EB', borderRadius: '4px', overflow: 'hidden', marginRight: '12px' }}>
+                        <div style={{ width: `${seoScore}%`, height: '100%', backgroundColor: seoScore > 70 ? '#10B981' : seoScore > 40 ? '#F59E0B' : '#EF4444', transition: 'width 0.5s ease' }}></div>
+                      </div>
+                      <span style={{ fontWeight: 'bold', minWidth: '40px', color: seoScore > 70 ? '#059669' : '#4D4D4D' }}>{seoScore}</span>
+                    </div>
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px' }}>Content (HTML Supported)</label>
-                  <textarea
-                    rows="10"
-                    required
-                    style={{ width: '100%', padding: '16px', border: '1px solid #CCCCCC', borderRadius: '12px', resize: 'vertical' }}
-                    value={currentBlog.content}
-                    onChange={(e) => setCurrentBlog({ ...currentBlog, content: e.target.value })}
-                  />
+                  <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px' }}>Content</label>
+                  <div className="rich-text-editor" style={{ borderRadius: '12px', overflow: 'hidden' }}>
+                    <ReactQuill 
+                      theme="snow" 
+                      value={currentBlog.content} 
+                      onChange={(content) => setCurrentBlog({ ...currentBlog, content })}
+                      style={{ height: '300px', marginBottom: '40px' }}
+                    />
+                  </div>
                 </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '24px' }}>
@@ -382,12 +399,15 @@ const AdminDashboard = ({ onClose }) => {
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', gap: '16px' }}>
+                <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
                   <button
                     type="submit"
                     style={{ padding: '16px 40px', backgroundColor: '#000000', color: '#FFFFFF', borderRadius: '12px', border: 'none', cursor: 'pointer', fontSize: '16px', fontWeight: 'bold' }}
                   >
                     {editMode ? 'Update Blog' : 'Publish Blog'}
+                  </button>
+                  <button type="button" onClick={() => setShowPreview(!showPreview)} style={{ padding: '16px 40px', backgroundColor: '#FFFFFF', color: '#000000', borderRadius: '12px', border: '1px solid #E5E7EB', cursor: 'pointer' }}>
+                    {showPreview ? 'Hide Preview' : 'Live Preview'}
                   </button>
                   {editMode && (
                     <button
@@ -399,6 +419,15 @@ const AdminDashboard = ({ onClose }) => {
                     </button>
                   )}
                 </div>
+
+                {showPreview && (
+                  <div className="preview-container animate-fade-in" style={{ padding: '48px', backgroundColor: '#F9FAFB', borderRadius: '24px', border: '1px solid #E5E7EB', marginTop: '32px' }}>
+                    <p style={{ fontSize: '12px', color: '#6B7280', textTransform: 'uppercase', marginBottom: '16px', fontWeight: 'bold' }}>Live Preview Preview</p>
+                    <h1 style={{ fontSize: '40px', fontWeight: '800', marginBottom: '24px' }}>{currentBlog.title || 'Post Title'}</h1>
+                    {currentBlog.featuredImage && <img src={currentBlog.featuredImage} style={{ width: '100%', height: '400px', objectFit: 'cover', borderRadius: '16px', marginBottom: '32px' }} />}
+                    <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: currentBlog.content }} style={{ fontSize: '18px', lineHeight: '1.8' }} />
+                  </div>
+                )}
               </form>
             </div>
 
