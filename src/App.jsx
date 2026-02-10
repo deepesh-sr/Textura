@@ -6,6 +6,7 @@ import FeaturesSection from './components/FeaturesSection'
 import ServicesSection from './components/ServicesSection'
 import IndustriesSection from './components/IndustriesSection'
 import CaseStudiesSection from './components/CaseStudiesSection'
+import TexturaSection from './components/TexturaSection'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <ServicesSection />
       <IndustriesSection />
       <CaseStudiesSection />
+      <TexturaSection />
     </>
   )
 }
