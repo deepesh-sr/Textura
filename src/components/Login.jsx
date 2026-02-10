@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 
 const Login = ({ onClose, onSwitchToSignup }) => {
@@ -35,33 +34,37 @@ const Login = ({ onClose, onSwitchToSignup }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-      <div className="bg-white rounded-2xl w-full max-w-md p-8 shadow-2xl relative">
-        <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-black">
+    <div className="fixed inset-0 z-100 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm" style={{ zIndex: 1000 }}>
+      <div className="bg-white rounded-2xl w-full max-w-md shadow-2xl relative overflow-hidden" style={{ padding: '48px', backgroundColor: '#FFFFFF', borderRadius: '24px' }}>
+        <button onClick={onClose} className="absolute top-6 right-6 text-gray-400 hover:text-black transition-colors" style={{ padding: '8px' }}>
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
         
-        <h2 className="text-3xl font-bold mb-6 text-center" style={{ fontFamily: "'Inter Tight', sans-serif" }}>Welcome Back</h2>
+        <h2 className="text-3xl font-bold mb-8 text-center" style={{ fontFamily: "'Inter Tight', sans-serif", color: '#000000', marginBottom: '32px' }}>Welcome Back</h2>
         
-        {error && <div className="mb-4 p-3 bg-red-50 text-red-500 rounded-lg text-sm">{error}</div>}
+        {error && <div className="mb-6 p-4 bg-red-50 text-red-500 rounded-xl text-sm border border-red-100" style={{ marginBottom: '24px' }}>{error}</div>}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-6" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <div>
-            <label className="block text-sm font-medium mb-1">Email</label>
+            <label className="block text-sm font-medium mb-2" style={{ color: '#4D4D4D' }}>Email</label>
             <input
               type="email"
               required
-              className="w-full p-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter your email"
+              className="w-full p-4 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-black transition-all"
+              style={{ padding: '16px', border: '1px solid #CCCCCC', borderRadius: '12px', fontSize: '15px' }}
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Password</label>
+            <label className="block text-sm font-medium mb-2" style={{ color: '#4D4D4D' }}>Password</label>
             <input
               type="password"
               required
-              className="w-full p-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="••••••••"
+              className="w-full p-4 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-black transition-all"
+              style={{ padding: '16px', border: '1px solid #CCCCCC', borderRadius: '12px', fontSize: '15px' }}
               value={formData.password}
               onChange={(e) => setFormData({ ...formData, password: e.target.value })}
             />
@@ -69,15 +72,16 @@ const Login = ({ onClose, onSwitchToSignup }) => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:bg-blue-400"
+            className="w-full py-4 bg-pure-black text-white rounded-xl font-semibold hover:bg-gray-900 transition-all active:scale-95 disabled:bg-gray-400"
+            style={{ padding: '16px', backgroundColor: '#000000', color: '#FFFFFF', borderRadius: '12px', marginTop: '12px', fontSize: '16px' }}
           >
             {loading ? 'Logging in...' : 'Log In'}
           </button>
         </form>
         
-        <p className="mt-6 text-center text-gray-600 text-sm">
+        <p className="mt-8 text-center text-gray-600 text-sm" style={{ marginTop: '32px' }}>
           Don't have an account?{' '}
-          <button onClick={onSwitchToSignup} className="text-blue-600 font-semibold hover:underline">Sign Up</button>
+          <button onClick={onSwitchToSignup} className="text-black font-bold hover:underline" style={{ color: '#000000' }}>Sign Up</button>
         </p>
       </div>
     </div>
