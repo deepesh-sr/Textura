@@ -13,23 +13,42 @@ import { useEffect, useState } from 'react'
 
 function App() {
   const [isAdmin, setIsAdmin] = useState(false);
+  const [showDashboard, setShowDashboard] = useState(false);
 
   useEffect(() => {
     const role = localStorage.getItem('role');
     setIsAdmin(role === 'Admin');
+
+    const handleHashChange = () => {
+      setShowDashboard(window.location.hash === '#cms');
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    // Initial check
+    handleHashChange();
+
+    return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
   return (
     <>
       <Navbar />
-      {isAdmin && <AdminDashboard />}
-      <HeroSlider />
-      <StatsSection />
-      <FeaturesSection />
-      <ServicesSection />
-      <IndustriesSection />
-      <CaseStudiesSection />
-      <TexturaSection />
+      {isAdmin && showDashboard ? (
+        <AdminDashboard onClose={() => {
+          window.location.hash = '';
+          setShowDashboard(false);
+        }} />
+      ) : (
+        <>
+          <HeroSlider />
+          <StatsSection />
+          <FeaturesSection />
+          <ServicesSection />
+          <IndustriesSection />
+          <CaseStudiesSection />
+          <TexturaSection />
+        </>
+      )}
       <Footer />
     </>
   )
