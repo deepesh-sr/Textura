@@ -1,4 +1,3 @@
-
 import Container from './Container';
 
 const Footer = () => {
@@ -6,88 +5,45 @@ const Footer = () => {
 
   const footerLinks = {
     Services: [
-      'Strategy & Digital Transformation',
-      'Application Services',
-      'Cloud Services',
-      'Data, Analytics & Artificial Intelligence',
-      'Digital Engineering Product Development',
-      'IoT & Connected Products',
-      'Cybersecurity',
-      'Integration & Middleware',
-      'Digital Experience & Design',
-      'Infrastructure Services & Modernization',
-      'Managed Services',
-      'Blockchain & Web3',
-      'Immersive Technologies & Metaverse',
-      '5G & Edge Computing',
-      'Sustainability & ESG Technology Services',
-      'Quantum Computing',
-      'Business Process'
+      'Content Creation & Management',
+      'SEO Optimization',
+      'Analytics & Insights',
+      'Media Management',
+      'Collaboration Tools',
+      'Custom Workflow Automation',
+      'Digital Strategy'
     ],
-    Industries: [
-      'Aerospace',
-      'Agriculture',
-      'Automotive & Mobility',
-      'Aviation',
-      'Banking, Capital Markets & Financial Services',
-      'Chemical Manufacturing',
-      'Communication & Telecommunication Services',
-      'Consumer Goods',
-      'Dairy',
-      'Defense',
-      'Education',
-      'Energy & Utilities',
-      'Engineering, Procurement & Construction',
-      'Gems, Stones & Jewellery',
-      'Government & Public Goods',
-      'Healthcare',
-      'High Technology',
-      'Industrial & Process Manufacturing',
-      'Information Services & Publishing',
-      'Insurance',
-      'Life Sciences',
-      'Logistics, Supply Chain, Transport & Distribution',
-      'Marine Economy',
-      'Media, Gaming & Entertainment',
-      'Mining & Metals',
-      'Oil & Gas',
-      'Private Equity',
-      'Professional Services',
-      'Real Estate',
-      'Renewable Energy & Sustainability',
-      'Retail & E-commerce',
-      'Semiconductor',
-      'Smart Cities',
-      'Sports',
-      'Textile',
-      'Travel, Tourism & Hospitality',
-      'Waste Management & Circular Economy'
+    Features: [
+      'Drag-and-Drop Editor',
+      'Smart Automation',
+      'Real-time Performance Tracking',
+      'Asset Organization',
+      'Team Governance',
+      'Pre-built SEO Tools',
+      'Scalable Publishing'
     ],
     Company: [
-      'About',
-      'Insights',
-      'Services',
-      'Industries',
+      'About Us',
+      'Case Studies',
+      'Technology Stack',
+      'Careers',
       'Contact',
-      'Career',
-      'Press Release',
-      'Diversity, Equity & Inclusion',
-      'Environmental, Social & Governance',
-      'Corporate Social Responsibility'
+      'Privacy Policy',
+      'Terms of Service'
     ]
   };
 
   return (
-    <footer className="bg-white pt-16 pb-8 border-t border-gray-100">
+    <footer className="bg-white pt-24 pb-12 border-t border-gray-100" style={{ padding: '96px 0 48px' }}>
       <Container>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20" style={{ marginBottom: '80px' }}>
           {/* Services Column */}
           <div>
-            <h3 className="text-xl font-medium mb-6" style={{ fontFamily: "'Inter Tight', sans-serif" }}>Services</h3>
-            <ul className="space-y-3">
+            <h3 className="text-xl font-semibold mb-8 text-pure-black" style={{ fontFamily: "'Inter Tight', sans-serif", fontSize: '20px', marginBottom: '32px' }}>Services</h3>
+            <ul className="space-y-4" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               {footerLinks.Services.map((link) => (
                 <li key={link}>
-                  <a href="#" className="text-gray-600 hover:text-blue-600 transition-colors text-[15px] font-normal" style={{ fontFamily: "'Inter Tight', sans-serif" }}>
+                  <a href="#" className="text-gray-600 hover:text-blue-600 transition-colors text-[15px] font-normal" style={{ fontFamily: "'Inter Tight', sans-serif", textDecoration: 'none' }}>
                     {link}
                   </a>
                 </li>
@@ -95,25 +51,30 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Industries Column (Split into two if needed, but following the screenshot's dense layout) */}
-          <div className="lg:col-span-2">
-            <h3 className="text-xl font-medium mb-6" style={{ fontFamily: "'Inter Tight', sans-serif" }}>Industries</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3">
-              {footerLinks.Industries.map((link) => (
-                <a key={link} href="#" className="text-gray-600 hover:text-blue-600 transition-colors text-[15px] font-normal" style={{ fontFamily: "'Inter Tight', sans-serif" }}>
-                  {link}
-                </a>
+          {/* Features Column */}
+          <div>
+            <h3 className="text-xl font-semibold mb-8 text-pure-black" style={{ fontFamily: "'Inter Tight', sans-serif", fontSize: '20px', marginBottom: '32px' }}>Features</h3>
+            <ul className="space-y-4" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              {footerLinks.Features.map((link) => (
+                <li key={link}>
+                  <a href="#" className="text-gray-600 hover:text-blue-600 transition-colors text-[15px] font-normal" style={{ fontFamily: "'Inter Tight', sans-serif", textDecoration: 'none' }}>
+                    {link}
+                  </a>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
+
+          {/* Empty Space for layout balance or additional info */}
+          <div className="hidden lg:block"></div>
 
           {/* Company Column */}
           <div>
-            <h3 className="text-xl font-medium mb-6" style={{ fontFamily: "'Inter Tight', sans-serif" }}>Company</h3>
-            <ul className="space-y-3">
+            <h3 className="text-xl font-semibold mb-8 text-pure-black" style={{ fontFamily: "'Inter Tight', sans-serif", fontSize: '20px', marginBottom: '32px' }}>Company</h3>
+            <ul className="space-y-4" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               {footerLinks.Company.map((link) => (
                 <li key={link}>
-                  <a href="#" className="text-gray-600 hover:text-blue-600 transition-colors text-[15px] font-normal" style={{ fontFamily: "'Inter Tight', sans-serif" }}>
+                  <a href="#" className="text-gray-600 hover:text-blue-600 transition-colors text-[15px] font-normal" style={{ fontFamily: "'Inter Tight', sans-serif", textDecoration: 'none' }}>
                     {link}
                   </a>
                 </li>
@@ -123,16 +84,15 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-gray-100 flex flex-col md:row items-center justify-between gap-6">
-          <div className="flex items-center gap-2">
-            <span className="text-[#00C292] font-bold text-xl">Giakaa</span>
-            <span className="text-[10px] text-gray-400 uppercase tracking-widest leading-none">Growth<br/>For All</span>
+        <div className="pt-10 border-t border-gray-100 flex flex-col md:flex-row items-center justify-between gap-8" style={{ paddingTop: '40px', borderTop: '1px solid #f3f4f6', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="flex items-center gap-3">
+            <span className="text-pure-black font-normal text-2xl tracking-tight" style={{ fontFamily: "'Roboto', sans-serif" }}>Textura</span>
           </div>
 
-          <div className="flex items-center gap-8">
-            <a href="#" className="text-gray-600 hover:text-blue-600 text-sm transition-colors" style={{ fontFamily: "'Inter Tight', sans-serif" }}>Privacy Policy</a>
-            <p className="text-gray-600 text-sm" style={{ fontFamily: "'Inter Tight', sans-serif" }}>
-              © {currentYear} Giakaa. All rights reserved
+          <div className="flex items-center gap-12" style={{ display: 'flex', gap: '48px', alignItems: 'center' }}>
+            <a href="#" className="text-gray-600 hover:text-blue-600 text-[15px] transition-colors" style={{ fontFamily: "'Inter Tight', sans-serif", textDecoration: 'none' }}>Privacy Policy</a>
+            <p className="text-gray-600 text-[15px]" style={{ fontFamily: "'Inter Tight', sans-serif" }}>
+              © {currentYear} Textura. All rights reserved
             </p>
           </div>
 
