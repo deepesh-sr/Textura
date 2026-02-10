@@ -6,33 +6,33 @@ const ServicesSection = () => {
   const services = [
     {
       id: 1,
-      title: 'Strategy & Digital Transformation',
-      image: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=800&q=80',
-      description: 'Transform your business digitally'
+      title: 'Content Creation & Management',
+      image: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800&q=80',
+      description: 'Streamlined content creation tools'
     },
     {
       id: 2,
-      title: 'Application Services',
-      image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&q=80',
-      description: 'Custom application development'
+      title: 'SEO Optimization',
+      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80',
+      description: 'Advanced SEO tools and analytics'
     },
     {
       id: 3,
-      title: 'Cloud Services',
-      image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80',
-      description: 'Scalable cloud solutions'
+      title: 'Analytics & Insights',
+      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80',
+      description: 'Real-time performance tracking'
     },
     {
       id: 4,
-      title: 'Data, Analytics & Artificial Intelligence',
-      image: 'https://images.unsplash.com/photo-1555255707-c07966088b7b?w=800&q=80',
-      description: 'AI-powered insights'
+      title: 'Media Management',
+      image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80',
+      description: 'Powerful asset organization'
     },
     {
       id: 5,
-      title: 'Sustainability & Esg Technology',
-      image: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&q=80',
-      description: 'Sustainable tech solutions'
+      title: 'Collaboration Tools',
+      image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80',
+      description: 'Team workflow management'
     }
   ];
 
