@@ -25,11 +25,22 @@ const SignIn = () => {
   if (user) {
     return (
       <div className="flex items-center gap-4">
-        <span className="text-sm font-medium text-gray-500">{user.role}</span>
+        <span style={{ fontSize: '12px', fontWeight: '700', color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.05em', fontFamily: "'Inter Tight', sans-serif" }}>{user.role}</span>
         <button
           onClick={handleLogout}
-          className="text-sm font-medium px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
-          style={{ fontFamily: "'Inter Tight', sans-serif" }}
+          style={{ 
+            fontFamily: "'Inter Tight', sans-serif",
+            fontSize: '13px',
+            fontWeight: '700',
+            padding: '10px 24px',
+            border: '1px solid #E5E7EB',
+            borderRadius: '100px',
+            backgroundColor: '#FFFFFF',
+            color: '#000000',
+            cursor: 'pointer',
+            transition: 'all 0.3s ease'
+          }}
+          className="hover:bg-black hover:text-white hover:border-black"
         >
           Logout
         </button>
