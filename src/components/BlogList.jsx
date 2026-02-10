@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import Container from './Container';
 
 const BlogList = () => {
@@ -40,6 +41,18 @@ const BlogList = () => {
 
   return (
     <div style={{ backgroundColor: '#F2F2F2', minHeight: '100vh', padding: '120px 0' }}>
+      <Helmet>
+        <title>Insights & Stories | Textura Digital Strategy</title>
+        <meta name="description" content="Explore the latest trends in content management, SEO optimization, and digital growth strategy from the Textura editorial team." />
+        
+        <meta property="og:title" content="Insights & Stories | Textura Digital Strategy" />
+        <meta property="og:description" content="Explore the latest trends in content management, SEO optimization, and digital growth strategy." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={`${window.location.origin}/blogs`} />
+        
+        <link rel="canonical" href={`${window.location.origin}/blogs`} />
+      </Helmet>
+      
       <Container>
         <div style={{ maxWidth: '800px', marginBottom: '80px' }}>
           <h1 style={{ 

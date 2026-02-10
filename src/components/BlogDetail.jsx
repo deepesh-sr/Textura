@@ -32,6 +32,23 @@ const BlogDetail = () => {
       <Helmet>
         <title>{blog.metaTitle || blog.title} | Textura Insights</title>
         <meta name="description" content={blog.metaDescription || blog.title} />
+        
+        {/* Open Graph Tags */}
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={blog.metaTitle || blog.title} />
+        <meta property="og:description" content={blog.metaDescription || blog.title} />
+        <meta property="og:image" content={blog.featuredImage} />
+        <meta property="og:url" content={`${window.location.origin}/blog/${blog.slug}`} />
+        <meta property="og:site_name" content="Textura" />
+
+        {/* Twitter Card Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={blog.metaTitle || blog.title} />
+        <meta name="twitter:description" content={blog.metaDescription || blog.title} />
+        <meta name="twitter:image" content={blog.featuredImage} />
+
+        {/* Canonical URL */}
+        <link rel="canonical" href={`${window.location.origin}/blog/${blog.slug}`} />
       </Helmet>
 
       {/* Modern Hero */}
