@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
+import Container from './Container';
 
 const StatsSection = () => {
   const textRef = useRef(null);
@@ -41,10 +42,11 @@ const StatsSection = () => {
   ];
 
   return (
-    <section className="bg-pure-white" style={{ padding: '80px 16px' }}>
-      {/* Animated Text Section */}
-      <div className="max-w-350 mx-auto" style={{ marginBottom: '80px' }}>
-        <motion.p
+    <section className="bg-pure-white" style={{ padding: '80px 0' }}>
+      <Container>
+        {/* Animated Text Section */}
+        <div style={{ marginBottom: '80px' }}>
+          <motion.p
           ref={textRef}
           className="text-pure-black leading-relaxed"
           style={{
@@ -78,7 +80,7 @@ const StatsSection = () => {
       {/* Stats Box */}
       <motion.div
         ref={statsRef}
-        className="max-w-350 mx-auto bg-pure-black rounded-2xl"
+        className="bg-pure-black rounded-2xl"
         style={{ padding: '60px 40px' }}
         initial={{ opacity: 0, y: 50 }}
         animate={isStatsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
@@ -112,6 +114,7 @@ const StatsSection = () => {
           ))}
         </div>
       </motion.div>
+      </Container>
     </section>
   );
 };

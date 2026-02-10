@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import SliderCard from './SliderCard';
+import Container from './Container';
 
 const HeroSlider = () => {
   const [activeCard, setActiveCard] = useState(0);
@@ -53,19 +54,21 @@ const HeroSlider = () => {
   }, [slides.length]);
 
   return (
-    <section className="relative min-h-screen bg-pure-white" style={{ padding: '32px 16px' }}>
-      <div className="max-w-400 mx-auto rounded-2xl overflow-hidden shadow-2xl" style={{ height: 'calc(100vh - 120px)' }}>
-        <div className="flex h-full" style={{ gap: '12px', padding: '12px', backgroundColor: '#F2F2F2' }}>
-          {slides.map((slide, index) => (
-            <SliderCard
-              key={slide.id}
-              slide={slide}
-              isActive={activeCard === index}
-              onClick={() => setActiveCard(index)}
-            />
-          ))}
+    <section className="relative min-h-screen bg-pure-white" style={{ paddingTop: '32px', paddingBottom: '32px' }}>
+      <Container>
+        <div className="rounded-2xl overflow-hidden shadow-2xl" style={{ height: 'calc(100vh - 120px)' }}>
+          <div className="flex h-full" style={{ gap: '12px', padding: '12px', backgroundColor: '#F2F2F2' }}>
+            {slides.map((slide, index) => (
+              <SliderCard
+                key={slide.id}
+                slide={slide}
+                isActive={activeCard === index}
+                onClick={() => setActiveCard(index)}
+              />
+            ))}
+          </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 };
