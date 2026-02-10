@@ -4,6 +4,14 @@ import { useRef, useState, useEffect } from 'react';
 const TexturaSection = () => {
   const containerRef = useRef(null);
   const [focusedLetter, setFocusedLetter] = useState(null);
+  const [lockedOpacity, setLockedOpacity] = useState(false);
+
+useEffect(() => {
+  return scrollYProgress.onChange((v) => {
+    if (v >= 0.4) setLockedOpacity(true);
+  });
+}, []);
+
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -11,8 +19,8 @@ const TexturaSection = () => {
   });
 
   // Phase 1: Scale and opacity (0-0.5 of scroll) - extended duration
-  const scale = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 1]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 1]);
   
   // Phase 2: Letter focus progression (0.5-1.0 of scroll)
   const letterProgress = useTransform(scrollYProgress, [0.5, 1], [0, 1]);
@@ -102,7 +110,7 @@ const TexturaSection = () => {
       ref={containerRef}
       className="bg-gray-50 relative"
       style={{ 
-        minHeight: '400vh',
+        minHeight: '1300vh',
         display: 'flex',
         flexDirection: 'column'
       }}
@@ -118,7 +126,7 @@ const TexturaSection = () => {
           <motion.div
             style={{
               scale,
-              opacity,
+              opacity : lockedOpacity ? 1 : opacity,
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
@@ -163,7 +171,7 @@ const Letter = ({ letter, gradient, title, description, isFocused, shouldDim, sh
     <motion.div
       className="relative flex flex-col items-center"
       animate={{
-        opacity: shouldDim ? 0.3 : 1,
+        opacity: shouldDim ? 0.35 : 1,
         scale: isFocused ? 1.15 : 1
       }}
       transition={{
@@ -171,7 +179,8 @@ const Letter = ({ letter, gradient, title, description, isFocused, shouldDim, sh
         ease: [0.4, 0, 0.2, 1]
       }}
       style={{
-        position: 'relative'
+        position: 'relative',
+        willChange: 'opacity, transform'
       }}
     >
       {/* The Letter */}
