@@ -123,9 +123,9 @@ const CaseStudyCard = ({ caseStudy }) => {
         <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent"></div>
       </motion.div>
 
-      {/* Content Card - Moves to bottom on hover */}
+      {/* Content Card - Expands on hover */}
       <motion.div
-        className="absolute left-0 right-0 mx-6 rounded-2xl overflow-hidden"
+        className="absolute overflow-hidden"
         style={{
           backgroundColor: 'rgba(30, 30, 30, 0.95)',
           backdropFilter: 'blur(10px)',
@@ -133,12 +133,20 @@ const CaseStudyCard = ({ caseStudy }) => {
         }}
         initial={false}
         animate={{
-          bottom: isHovered ? '24px' : '50%',
-          y: isHovered ? 0 : '50%'
+          bottom: isHovered ? '12px' : '24px',
+          left: isHovered ? '0px' : '24px',
+          right: isHovered ? '0px' : '24px',
+          borderRadius: isHovered ? '0px' : '16px'
         }}
-        transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+        transition={{ duration: 0.05, ease: [0.4, 0, 0.2, 1] }}
       >
-        <div style={{ padding: '32px' }}>
+        <motion.div
+          initial={false}
+          animate={{
+            padding: isHovered ? '40px 32px' : '32px'
+          }}
+          transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+        >
           {/* Logo/Icon */}
           <div 
             style={{ 
@@ -228,7 +236,7 @@ const CaseStudyCard = ({ caseStudy }) => {
               <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </motion.svg>
           </motion.a>
-        </div>
+        </motion.div>
       </motion.div>
     </motion.div>
   );
