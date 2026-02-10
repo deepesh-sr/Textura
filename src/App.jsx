@@ -8,11 +8,21 @@ import IndustriesSection from './components/IndustriesSection'
 import CaseStudiesSection from './components/CaseStudiesSection'
 import TexturaSection from './components/TexturaSection'
 import Footer from './components/Footer'
+import AdminDashboard from './components/AdminDashboard'
+import { useEffect, useState } from 'react'
 
 function App() {
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const role = localStorage.getItem('role');
+    setIsAdmin(role === 'Admin');
+  }, []);
+
   return (
     <>
       <Navbar />
+      {isAdmin && <AdminDashboard />}
       <HeroSlider />
       <StatsSection />
       <FeaturesSection />
