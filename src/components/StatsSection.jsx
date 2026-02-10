@@ -56,18 +56,20 @@ const StatsSection = () => {
           {text.split('').map((char, index) => (
             <motion.span
               key={index}
-              initial={{ opacity: 0 }}
-              animate={isTextInView ? { opacity: 1 } : { opacity: 0 }}
+              initial={{ opacity: 0, filter: 'blur(10px)' }}
+              animate={isTextInView ? { opacity: 1, filter: 'blur(0px)' } : { opacity: 0, filter: 'blur(10px)' }}
               transition={{
-                duration: 0.03,
-                delay: index * 0.02
+                duration: 0.4,
+                delay: index * 0.025,
+                ease: 'easeIn'
               }}
               style={{
                 color: char === 'T' && index < 10 ? '#3B82F6' : 'inherit',
-                fontWeight: char === 'T' && index < 10 ? 'bold' : 'normal'
+                fontWeight: char === 'T' && index < 10 ? 'bold' : 'normal',
+                display: 'inline-block'
               }}
             >
-              {char}
+              {char === ' ' ? '\u00A0' : char}
             </motion.span>
           ))}
         </motion.p>
