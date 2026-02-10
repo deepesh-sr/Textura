@@ -4,6 +4,7 @@ import HeroSlider from './components/HeroSlider'
 import StatsSection from './components/StatsSection'
 import FeaturesSection from './components/FeaturesSection'
 import ServicesSection from './components/ServicesSection'
+import IndustriesSection from './components/IndustriesSection'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <StatsSection />
       <FeaturesSection />
       <ServicesSection />
+      <IndustriesSection />
     </>
   )
 }
