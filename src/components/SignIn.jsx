@@ -48,8 +48,14 @@ const SignIn = () => {
       </button>
       <button
         onClick={() => setShowSignup(true)}
-        className="px-5 py-2.5 bg-pure-black text-white text-sm font-medium rounded-full hover:bg-gray-800 transition-colors"
-        style={{ fontFamily: "'Inter Tight', sans-serif" }}
+        className="bg-pure-black text-white text-sm font-medium rounded-full hover:bg-gray-800 transition-colors"
+        style={{ 
+          fontFamily: "'Inter Tight', sans-serif",
+          padding: '12px 28px',
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
       >
         Sign Up
       </button>

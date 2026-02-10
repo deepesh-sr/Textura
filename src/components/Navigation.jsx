@@ -12,14 +12,9 @@ const Navigation = () => {
 
   const navLinks = [
     { name: 'HOME', href: '/', ariaLabel: 'Go to home page' },
-    // Only show CMS to Admins (remains href for hash logic in App.jsx)
+    // Only show CMS to Admins
     ...(isAdmin ? [{ name: 'CMS', href: '/#cms', ariaLabel: 'Admin CMS Management' }] : []),
     { name: 'BLOGS', href: '/blogs', ariaLabel: 'View our blog' },
-    { name: 'CONTENT', href: '#', ariaLabel: 'Manage your content' },
-    { name: 'ANALYTICS', href: '#', ariaLabel: 'View analytics' },
-    { name: 'SEO TOOLS', href: '#', ariaLabel: 'SEO optimization tools' },
-    { name: 'MEDIA', href: '#', ariaLabel: 'Media library' },
-    { name: 'SETTINGS', href: '#', ariaLabel: 'Account settings' },
   ];
 
   return (
