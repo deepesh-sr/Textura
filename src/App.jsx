@@ -10,6 +10,10 @@ import TexturaSection from './components/TexturaSection'
 import Footer from './components/Footer'
 import AdminDashboard from './components/AdminDashboard'
 import { useEffect, useState } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { HelmetProvider } from 'react-helmet-async'
+import BlogList from './components/BlogList'
+import BlogDetail from './components/BlogDetail'
 
 function App() {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -31,26 +35,41 @@ function App() {
   }, []);
 
   return (
-    <>
-      <Navbar />
-      {isAdmin && showDashboard ? (
-        <AdminDashboard onClose={() => {
-          window.location.hash = '';
-          setShowDashboard(false);
-        }} />
-      ) : (
-        <>
-          <HeroSlider />
-          <StatsSection />
-          <FeaturesSection />
-          <ServicesSection />
-          <IndustriesSection />
-          <CaseStudiesSection />
-          <TexturaSection />
-        </>
-      )}
-      <Footer />
-    </>
+    <HelmetProvider>
+      <Router>
+        <div className="flex flex-col min-h-screen">
+          <Navbar />
+          
+          <main className="flex-grow">
+            <Routes>
+              <Route path="/" element={
+                isAdmin && showDashboard ? (
+                  <AdminDashboard onClose={() => {
+                    window.location.hash = '';
+                    setShowDashboard(false);
+                  }} />
+                ) : (
+                  <>
+                    <HeroSlider />
+                    <StatsSection />
+                    <FeaturesSection />
+                    <ServicesSection />
+                    <IndustriesSection />
+                    <CaseStudiesSection />
+                    <TexturaSection />
+                  </>
+                )
+              } />
+              
+              <Route path="/blogs" element={<BlogList />} />
+              <Route path="/blog/:slug" element={<BlogDetail />} />
+            </Routes>
+          </main>
+
+          <Footer />
+        </div>
+      </Router>
+    </HelmetProvider>
   )
 }
 

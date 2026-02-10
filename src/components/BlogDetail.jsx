@@ -1,0 +1,118 @@
+import { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import Container from './Container';
+import DOMPurify from 'dompurify';
+
+const BlogDetail = () => {
+  const { slug } = useParams();
+  const [blog, setBlog] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(`/api/blogs/${slug}`)
+      .then(res => res.json())
+      .then(data => {
+        setBlog(data);
+        setLoading(false);
+      })
+      .catch(err => console.error(err));
+  }, [slug]);
+
+  if (loading) return (
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', background: '#FFF' }}>
+      <div style={{ width: '32px', height: '32px', border: '2px solid #EEE', borderTopColor: '#000', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
+      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+    </div>
+  );
+  if (!blog) return <div style={{ padding: '120px 0', textAlign: 'center', fontFamily: "'Inter Tight', sans-serif" }}>Story not found.</div>;
+
+  return (
+    <div style={{ backgroundColor: '#FFFFFF', minHeight: '100vh' }}>
+      <Helmet>
+        <title>{blog.metaTitle || blog.title} | Textura Insights</title>
+        <meta name="description" content={blog.metaDescription || blog.title} />
+      </Helmet>
+
+      {/* Modern Hero */}
+      <div style={{ position: 'relative', height: '70vh', minHeight: '600px', backgroundColor: '#000' }}>
+        <img 
+          src={blog.featuredImage || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643'} 
+          alt={blog.title}
+          style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8 }}
+        />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%)' }} />
+        
+        <div style={{ position: 'absolute', bottom: '0', left: '0', width: '100%', padding: '80px 0' }}>
+          <Container>
+            <div style={{ maxWidth: '900px' }}>
+              <Link to="/blogs" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: '#FFF', textDecoration: 'none', marginBottom: '40px', fontSize: '12px', fontWeight: '800', letterSpacing: '0.2em', textTransform: 'uppercase' }} className="hover:opacity-70 transition-opacity">
+                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+                Back to Index
+              </Link>
+              <h1 style={{ 
+                color: '#FFF', 
+                fontSize: 'clamp(2.5rem, 6vw, 5.5rem)', 
+                fontWeight: '800', 
+                lineHeight: '1', 
+                letterSpacing: '-0.04em', 
+                fontFamily: "'Inter Tight', sans-serif",
+                marginBottom: '40px'
+              }}>
+                {blog.title}
+              </h1>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '800', fontSize: '14px', color: '#000' }}>TX</div>
+                  <div style={{ color: '#FFF' }}>
+                    <p style={{ margin: 0, fontSize: '14px', fontWeight: '700' }}>Textura Editorial</p>
+                    <p style={{ margin: 0, fontSize: '12px', opacity: 0.6 }}>Published {new Date(blog.createdAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Container>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div style={{ padding: '120px 0' }}>
+        <Container>
+          <div style={{ maxWidth: '720px', margin: '0 auto' }}>
+            <div 
+              className="blog-prose"
+              style={{ 
+                fontSize: '21px', 
+                lineHeight: '1.7', 
+                color: '#1F2937',
+                fontFamily: "'Inter Tight', sans-serif"
+              }}
+              dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(blog.content) }}
+            />
+          </div>
+        </Container>
+      </div>
+
+      <style>{`
+        .blog-prose p { margin-bottom: 2rem; }
+        .blog-prose h2 { font-size: 36px; font-weight: 800; margin: 3rem 0 1.5rem; letter-spacing: -0.02em; color: #000; }
+        .blog-prose h3 { font-size: 28px; font-weight: 800; margin: 2.5rem 0 1.25rem; color: #000; }
+        .blog-prose blockquote { 
+          padding: 40px; 
+          background: #F9FAFB; 
+          border-left: 8px solid #000; 
+          font-size: 24px; 
+          font-style: italic; 
+          font-weight: 600; 
+          margin: 4rem 0;
+          color: #111;
+        }
+        .blog-prose img { width: 100%; border-radius: 24px; margin: 3rem 0; }
+        .blog-prose ul { margin-bottom: 2rem; padding-left: 1.5rem; }
+        .blog-prose li { margin-bottom: 0.75rem; }
+      `}</style>
+    </div>
+  );
+};
+
+export default BlogDetail;

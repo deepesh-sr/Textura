@@ -1,4 +1,5 @@
 import Container from './Container';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -34,16 +35,16 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-white pt-24 pb-12 border-t border-gray-100" style={{ padding: '96px 0 48px' }}>
+    <footer className="bg-white pt-24 pb-12 border-t border-gray-100" style={{ padding: '96px 0 48px', backgroundColor: '#FFFFFF' }}>
       <Container>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20" style={{ marginBottom: '80px' }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20" style={{ marginBottom: '80px', display: 'grid', gap: '48px' }}>
           {/* Services Column */}
           <div>
-            <h3 className="text-xl font-semibold mb-8 text-pure-black" style={{ fontFamily: "'Inter Tight', sans-serif", fontSize: '20px', marginBottom: '32px' }}>Services</h3>
-            <ul className="space-y-4" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <h3 style={{ fontFamily: "'Inter Tight', sans-serif", fontSize: '18px', fontWeight: '800', marginBottom: '32px', color: '#000000', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Services</h3>
+            <ul style={{ display: 'flex', flexDirection: 'column', gap: '16px', listStyle: 'none', padding: 0 }}>
               {footerLinks.Services.map((link) => (
                 <li key={link}>
-                  <a href="#" className="text-gray-600 hover:text-blue-600 transition-colors text-[15px] font-normal" style={{ fontFamily: "'Inter Tight', sans-serif", textDecoration: 'none' }}>
+                  <a href="#" style={{ fontFamily: "'Inter Tight', sans-serif", color: '#6B7280', fontSize: '15px', textDecoration: 'none', transition: 'color 0.3s' }} className="hover:text-black">
                     {link}
                   </a>
                 </li>
@@ -53,11 +54,16 @@ const Footer = () => {
 
           {/* Features Column */}
           <div>
-            <h3 className="text-xl font-semibold mb-8 text-pure-black" style={{ fontFamily: "'Inter Tight', sans-serif", fontSize: '20px', marginBottom: '32px' }}>Features</h3>
-            <ul className="space-y-4" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              {footerLinks.Features.map((link) => (
+            <h3 style={{ fontFamily: "'Inter Tight', sans-serif", fontSize: '18px', fontWeight: '800', marginBottom: '32px', color: '#000000', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Insights</h3>
+            <ul style={{ display: 'flex', flexDirection: 'column', gap: '16px', listStyle: 'none', padding: 0 }}>
+              <li>
+                <Link to="/blogs" style={{ fontFamily: "'Inter Tight', sans-serif", color: '#6B7280', fontSize: '15px', textDecoration: 'none', transition: 'color 0.3s' }} className="hover:text-black">
+                  View Latest Articles
+                </Link>
+              </li>
+              {footerLinks.Features.slice(0, 4).map((link) => (
                 <li key={link}>
-                  <a href="#" className="text-gray-600 hover:text-blue-600 transition-colors text-[15px] font-normal" style={{ fontFamily: "'Inter Tight', sans-serif", textDecoration: 'none' }}>
+                  <a href="#" style={{ fontFamily: "'Inter Tight', sans-serif", color: '#6B7280', fontSize: '15px', textDecoration: 'none', transition: 'color 0.3s' }} className="hover:text-black">
                     {link}
                   </a>
                 </li>
