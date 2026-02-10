@@ -5,6 +5,7 @@ import StatsSection from './components/StatsSection'
 import FeaturesSection from './components/FeaturesSection'
 import ServicesSection from './components/ServicesSection'
 import IndustriesSection from './components/IndustriesSection'
+import CaseStudiesSection from './components/CaseStudiesSection'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <FeaturesSection />
       <ServicesSection />
       <IndustriesSection />
+      <CaseStudiesSection />
     </>
   )
 }
