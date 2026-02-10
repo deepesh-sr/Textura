@@ -1,7 +1,8 @@
 import { useState } from 'react';
 
 const Signup = ({ onClose, onSwitchToLogin }) => {
-  const [formData, setFormData] = useState({ name: '', email: '', password: '', role: 'Admin' });
+  // Hardcode role to 'User' to prevent admin creation from frontend
+  const [formData, setFormData] = useState({ name: '', email: '', password: '', role: 'User' });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
