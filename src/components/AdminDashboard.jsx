@@ -32,29 +32,44 @@ const AdminDashboard = ({ onClose }) => {
   });
 
   const [error, setError] = useState('');
-  const token = localStorage.getItem('token');
 
   const fetchData = async () => {
     setLoading(true);
+    const token = localStorage.getItem('token');
     try {
+      const headers = {
+        'authorization': token // Changed header key to lowercase and removed 'Bearer ' prefix as per user hints
+      };
+
       const [slidersRes, blogsRes] = await Promise.all([
-        fetch('/api/sliders'),
-        fetch('/api/blogs')
+        fetch('/api/sliders', { headers }),
+        fetch('/api/blogs', { headers })
       ]);
-      const [slidersData, blogsData] = await Promise.all([
-        slidersRes.json(),
-        blogsRes.json()
-      ]);
-      setSliders(slidersData);
-      setBlogs(blogsData);
+      
+      const slidersData = await slidersRes.json();
+      const blogsData = await blogsRes.json();
+      
+      setSliders(Array.isArray(slidersData) ? slidersData : []);
+      setBlogs(Array.isArray(blogsData) ? blogsData : []);
     } catch (err) {
       console.error('Failed to fetch data');
+      setError('Content sync failed. Is your internet active?');
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    const role = localStorage.getItem('role')?.toLowerCase();
+    
+    // Check for both 'Admin' and 'admin'
+    if (!token || role !== 'admin') {
+      setError(`Access Denied. Found role: ${role || 'None'}`);
+      setLoading(false);
+      return;
+    }
+    
     fetchData();
   }, []);
 
@@ -62,6 +77,13 @@ const AdminDashboard = ({ onClose }) => {
   const handleSliderSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    const currentToken = localStorage.getItem('token');
+    
+    if (!currentToken) {
+      setError('Session expired. Please login again.');
+      return;
+    }
+
     const method = editMode ? 'PUT' : 'POST';
     const url = editMode ? `/api/admin/sliders/${currentSlider._id}` : '/api/admin/sliders';
 
@@ -70,20 +92,26 @@ const AdminDashboard = ({ onClose }) => {
         method,
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          'authorization': currentToken
         },
         body: JSON.stringify(currentSlider)
       });
 
       if (response.ok) {
-        fetchData();
+        await fetchData();
         resetSliderForm();
       } else {
         const data = await response.json();
-        setError(data.error || 'Operation failed');
+        const errorMessage = data.error || 'Operation failed';
+        setError(`Error ${response.status}: ${errorMessage}`);
+        
+        // Remove auto-logout to allow debugging
+        if (response.status === 401) {
+          console.error("Backend rejected token. Check JWT_SECRET or expiration.");
+        }
       }
     } catch (err) {
-      setError('An error occurred');
+      setError('An error occurred while saving the slider.');
     }
   };
 
@@ -91,38 +119,76 @@ const AdminDashboard = ({ onClose }) => {
   const handleBlogSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    const currentToken = localStorage.getItem('token');
+    
+    if (!currentToken) {
+      setError('❌ AUTH ERROR: No session found. Please log in again.');
+      return;
+    }
+
+    // Basic Client-side Validation
+    if (!currentBlog.title || !currentBlog.content || !currentBlog.slug) {
+      setError('❌ VALIDATION ERROR: Title, Content, and Slug are required.');
+      return;
+    }
+
     const method = editMode ? 'PUT' : 'POST';
     const url = editMode ? `/api/admin/blogs/${currentBlog._id}` : '/api/admin/blogs';
 
+    setLoading(true); // Show loading state during submit
     try {
       const response = await fetch(url, {
         method,
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          'authorization': currentToken
         },
         body: JSON.stringify(currentBlog)
       });
 
+      const data = await response.json();
+
       if (response.ok) {
-        fetchData();
+        await fetchData();
         resetBlogForm();
+        alert('Success! Blog post saved.');
       } else {
-        const data = await response.json();
-        setError(JSON.stringify(data.error) || 'Operation failed');
+        // Detailed Error Parsing
+        let msg = 'Unknown Error';
+        if (data.error) {
+          if (Array.isArray(data.error)) {
+            // Likely Zod/Validation array
+            msg = data.error.map(err => `${err.path?.join('.') || 'Error'}: ${err.message}`).join(' | ');
+          } else if (typeof data.error === 'object') {
+            msg = data.message || JSON.stringify(data.error);
+          } else {
+            msg = data.error;
+          }
+        }
+        
+        setError(`❌ SERVER ERROR (${response.status}): ${msg}`);
+        console.error('Full Error Object from Server:', data);
+
+        if (response.status === 401) {
+          setError('❌ UNAUTHORIZED: Your token was rejected. Try logging out and in again.');
+        }
       }
     } catch (err) {
-      setError('An error occurred');
+      setError('❌ NETWORK ERROR: Failed to reach the server. Is it running on localhost:3000?');
+      console.error('Fetch exception:', err);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleDeleteSlider = async (id) => {
     if (!window.confirm('Are you sure you want to delete this slider?')) return;
+    const currentToken = localStorage.getItem('token');
     try {
       const response = await fetch(`/api/admin/sliders/${id}`, {
         method: 'DELETE',
         headers: {
-          'Authorization': `Bearer ${token}`
+          'authorization': currentToken
         }
       });
       if (response.ok) fetchData();
@@ -133,11 +199,12 @@ const AdminDashboard = ({ onClose }) => {
 
   const handleDeleteBlog = async (id) => {
     if (!window.confirm('Delete this blog post?')) return;
+    const currentToken = localStorage.getItem('token');
     try {
       const response = await fetch(`/api/admin/blogs/${id}`, {
         method: 'DELETE',
         headers: {
-          'Authorization': `Bearer ${token}`
+          'authorization': currentToken
         }
       });
       if (response.ok) fetchData();

@@ -20,14 +20,20 @@ const Login = ({ onClose, onSwitchToSignup }) => {
       const data = await response.json();
 
       if (response.ok) {
+        // Correctly store the token and role returned by your backend
         localStorage.setItem('token', data.token);
         localStorage.setItem('role', data.role);
-        window.location.reload(); // Refresh to update navbar state
+        
+        // Use a slight delay before reload to ensure storage is populated
+        setTimeout(() => {
+          window.location.hash = ''; // Clear CMS hash if present to reset view
+          window.location.reload();
+        }, 100);
       } else {
-        setError(data.error || 'Signin failed');
+        setError(data.error || 'Invalid email or password');
       }
     } catch (err) {
-      setError('An error occurred. Please try again.');
+      setError('Connection failed. Is the server running?');
     } finally {
       setLoading(false);
     }
