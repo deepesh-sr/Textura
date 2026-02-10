@@ -1,6 +1,17 @@
+import { useState, useEffect } from 'react';
+
 const Navigation = () => {
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const role = localStorage.getItem('role');
+    setIsAdmin(role === 'Admin');
+  }, []);
+
   const navLinks = [
     { name: 'HOME', href: '/', ariaLabel: 'Go to home page' },
+    // Only show CMS to Admins
+    ...(isAdmin ? [{ name: 'CMS', href: '#cms', ariaLabel: 'Admin CMS Management' }] : []),
     { name: 'CONTENT', href: '/content', ariaLabel: 'Manage your content' },
     { name: 'ANALYTICS', href: '/analytics', ariaLabel: 'View analytics' },
     { name: 'SEO TOOLS', href: '/seo', ariaLabel: 'SEO optimization tools' },
