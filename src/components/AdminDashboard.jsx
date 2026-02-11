@@ -251,7 +251,7 @@ const AdminDashboard = ({ onClose }) => {
             <button 
               onClick={onClose}
               className="px-4 py-2 md:px-6 md:py-3 rounded-xl font-semibold text-sm transition-all flex items-center gap-2"
-              style={{ backgroundColor: '#000000', color: '#FFFFFF' }}
+              style={{ padding: '12px 24px', backgroundColor: '#000000', color: '#FFFFFF', borderRadius: '12px', border: 'none', cursor: 'pointer', fontSize: '14px' }}
             >
               Back to Site
             </button>
@@ -272,6 +272,15 @@ const AdminDashboard = ({ onClose }) => {
                     ? 'bg-black text-white' 
                     : 'text-gray-500 hover:bg-gray-100'
                 }`}
+                style={{ 
+                  padding: '12px 24px', 
+                  borderRadius: '12px', 
+                  backgroundColor: activeTab === tab ? '#000000' : 'transparent',
+                  color: activeTab === tab ? '#FFFFFF' : '#6B7280',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontSize: '14px'
+                }}
               >
                 {tab.charAt(0).toUpperCase() + tab.slice(1)}
               </button>
@@ -402,8 +411,18 @@ const AdminDashboard = ({ onClose }) => {
                       <div style={{ padding: '24px' }}>
                         <h4 style={{ fontWeight: '700', fontSize: '18px', marginBottom: '8px' }}>{s.title}</h4>
                         <div style={{ display: 'flex', gap: '8px', marginTop: '16px' }}>
-                          <button onClick={() => { setCurrentSlider(s); setEditMode(true); window.scrollTo({ top: 0, behavior: 'smooth' }); }} style={{ flex: 1, padding: '10px', borderRadius: '8px', border: '1px solid #E5E7EB', cursor: 'pointer' }}>Edit</button>
-                          <button onClick={() => handleDeleteSlider(s._id)} style={{ padding: '10px 15px', borderRadius: '8px', border: 'none', backgroundColor: '#FEF2F2', color: '#DC2626', cursor: 'pointer' }}>Delete</button>
+                          <button 
+                            onClick={() => { setCurrentSlider(s); setEditMode(true); window.scrollTo({ top: 0, behavior: 'smooth' }); }} 
+                            style={{ flex: 1, padding: '12px', borderRadius: '8px', border: '1px solid #E5E7EB', backgroundColor: '#FFFFFF', cursor: 'pointer', fontWeight: 'bold' }}
+                          >
+                            Edit
+                          </button>
+                          <button 
+                            onClick={() => handleDeleteSlider(s._id)} 
+                            style={{ padding: '12px 20px', borderRadius: '8px', border: 'none', backgroundColor: '#FEF2F2', color: '#DC2626', cursor: 'pointer', fontWeight: 'bold' }}
+                          >
+                            Delete
+                          </button>
                         </div>
                       </div>
                     </div>
