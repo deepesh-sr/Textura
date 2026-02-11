@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Container from './Container';
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
+import API_BASE from '../config';
 
 const AdminDashboard = ({ onClose }) => {
   const [sliders, setSliders] = useState([]);
@@ -42,8 +43,8 @@ const AdminDashboard = ({ onClose }) => {
       };
 
       const [slidersRes, blogsRes] = await Promise.all([
-        fetch('/api/sliders', { headers }),
-        fetch('/api/blogs', { headers })
+        fetch(`${API_BASE}/api/sliders`, { headers }),
+        fetch(`${API_BASE}/api/blogs`, { headers })
       ]);
       
       const slidersData = await slidersRes.json();
@@ -85,7 +86,7 @@ const AdminDashboard = ({ onClose }) => {
     }
 
     const method = editMode ? 'PUT' : 'POST';
-    const url = editMode ? `/api/admin/sliders/${currentSlider._id}` : '/api/admin/sliders';
+    const url = editMode ? `${API_BASE}/api/admin/sliders/${currentSlider._id}` : `${API_BASE}/api/admin/sliders`;
 
     try {
       const response = await fetch(url, {
@@ -126,8 +127,15 @@ const AdminDashboard = ({ onClose }) => {
       return;
     }
 
-    const { _id, __v, createdAt, updatedAt, ...payload } = currentBlog;
-    const url = editMode ? `/api/admin/blogs/${_id}` : '/api/admin/blogs';
+    // Extract ID safely and validate for Edit mode
+    const targetId = currentBlog._id || currentBlog.id;
+    if (editMode && !targetId) {
+      setError('❌ Critical Error: Missing Blog ID. Please refresh and try again.');
+      return;
+    }
+
+    const { _id, id, __v, createdAt, updatedAt, ...payload } = currentBlog;
+    const url = editMode ? `${API_BASE}/api/admin/blogs/${targetId}` : `${API_BASE}/api/admin/blogs`;
     const method = editMode ? 'PUT' : 'POST';
 
     setLoading(true);
@@ -161,7 +169,7 @@ const AdminDashboard = ({ onClose }) => {
     if (!window.confirm('Are you sure you want to delete this slider?')) return;
     const currentToken = localStorage.getItem('token');
     try {
-      const response = await fetch(`/api/admin/sliders/${id}`, {
+      const response = await fetch(`${API_BASE}/api/admin/sliders/${id}`, {
         method: 'DELETE',
         headers: {
           'authorization': currentToken
@@ -177,10 +185,10 @@ const AdminDashboard = ({ onClose }) => {
     if (!window.confirm('Delete this blog post?')) return;
     const currentToken = localStorage.getItem('token');
     try {
-      const response = await fetch(`/api/admin/blogs/${id}`, {
+      const response = await fetch(`${API_BASE}/api/admin/blogs/${id}`, {
         method: 'DELETE',
         headers: {
-          'authorization': currentToken
+          'Authorization': currentToken
         }
       });
       if (response.ok) fetchData();

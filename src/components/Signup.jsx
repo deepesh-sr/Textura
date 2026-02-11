@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import API_BASE from '../config';
 
 const Signup = ({ onClose, onSwitchToLogin }) => {
   // Hardcode role to 'User' to prevent admin creation from frontend
@@ -13,9 +14,11 @@ const Signup = ({ onClose, onSwitchToLogin }) => {
     setError('');
 
     try {
-      const response = await fetch('/api/auth/signup', {
+      const response = await fetch(`${API_BASE}/api/auth/signup`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify(formData),
       });
 
