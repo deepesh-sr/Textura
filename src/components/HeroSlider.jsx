@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react';
-import SliderCard from './SliderCard';
-import Container from './Container';
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import API_BASE from "../config";
+import SliderCard from "./SliderCard";
+import Container from "./Container";
 
 const HeroSlider = () => {
   const [activeCard, setActiveCard] = useState(0);
@@ -9,14 +11,11 @@ const HeroSlider = () => {
 
   useEffect(() => {
     const fetchSliders = async () => {
-      const Admintoken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI2OThiNjQ5YjBkOWNmZjA1MDU5YWI1YmQiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NzA3NDI5NjMsImV4cCI6MTc3MDgyOTM2M30.q9a6TCNfgdHMaVmMyX0PLm7wQtkHEnIttOdguq94drE';
       try {
-        const response = await fetch("/api/sliders", {
-          method: 'GET',
+        const response = await fetch(`${API_BASE}/api/sliders`, {
           headers: {
-            'Authorization': `Bearer ${Admintoken}`,
-            'Content-Type': 'application/json'
-          }
+            "Content-Type": "application/json",
+          },
         });
 
         const data = await response.json();

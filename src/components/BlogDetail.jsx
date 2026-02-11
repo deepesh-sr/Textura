@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Container from './Container';
 import DOMPurify from 'dompurify';
+import API_BASE from '../config';
 
 const BlogDetail = () => {
   const { slug } = useParams();
@@ -10,7 +11,7 @@ const BlogDetail = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`/api/blogs/${slug}`)
+    fetch(`${API_BASE}/api/blogs/${slug}`)
       .then(res => res.json())
       .then(data => {
         setBlog(data);

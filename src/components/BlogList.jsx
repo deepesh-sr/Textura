@@ -2,13 +2,14 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Container from './Container';
+import API_BASE from '../config';
 
 const BlogList = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/blogs')
+    fetch(`${API_BASE}/api/blogs`)
       .then(res => res.json())
       .then(data => {
         setBlogs(data);
