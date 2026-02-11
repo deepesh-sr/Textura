@@ -1,19 +1,18 @@
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 
 const TexturaSection = () => {
   const containerRef = useRef(null);
   const [focusedLetter, setFocusedLetter] = useState(null);
-  const [lockedOpacity, setLockedOpacity] = useState(false);
-
+  
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
   });
 
   // Phase 1: Scale and opacity (0-0.5 of scroll) - extended duration
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 1]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 1]);
+  const scale = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
   
   // Phase 2: Letter focus progression (0.5-1.0 of scroll)
   const letterProgress = useTransform(scrollYProgress, [0.5, 1], [0, 1]);
@@ -99,76 +98,162 @@ const TexturaSection = () => {
   ];
 
   return (
-    <section ref={containerRef} className="relative bg-black min-h-[300vh] py-20">
-      <div className="sticky top-0 h-screen flex flex-col items-center justify-center overflow-hidden px-4">
-        {/* Main Title Background */}
-        <motion.div
-          style={{
-            scale,
-            opacity: isPhase1Complete ? (lockedOpacity ? 1 : opacity) : opacity,
-          }}
-          className="relative flex flex-col items-center"
-        >
-          <div className="flex flex-wrap justify-center items-center gap-2 md:gap-4 lg:gap-8">
+    <section 
+      ref={containerRef}
+      className="bg-gray-50 relative"
+      style={{ 
+        minHeight: '400vh',
+        display: 'flex',
+        flexDirection: 'column'
+      }}
+    >
+      {/* Sticky Container */}
+      <div 
+        className="sticky top-0 h-screen flex items-center justify-center overflow-hidden"
+        style={{ width: '100%' }}
+      >
+        {/* Main Text Container */}
+        <div className="relative w-full h-full flex items-center justify-center px-8">
+          {/* The Word "Textura" */}
+          <motion.div
+            style={{
+              scale,
+              opacity,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              gap: 'clamp(0.5rem, 2vw, 2rem)',
+              position: 'relative',
+              width: '100%'
+            }}
+          >
             {letters.map((item, index) => (
-              <motion.div
+              <Letter
                 key={index}
-                className="relative group cursor-pointer"
-                onMouseEnter={() => setFocusedLetter(index)}
-                onMouseLeave={() => setFocusedLetter(null)}
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  flexDirection: 'column',
-                  width: 'clamp(80px, 10vw, 120px)',
-                  height: 'clamp(80px, 10vw, 120px)',
-                  margin: '0 auto',
-                  position: 'relative',
-                  willChange: 'opacity, transform'
-                }}
-              >
-                <span
-                  className="text-white font-black leading-none transition-all duration-500 block"
-                  style={{
-                    fontSize: 'clamp(4rem, 15vw, 12rem)',
-                    fontFamily: "'Inter Tight', sans-serif",
-                    filter: focusedLetter !== null && focusedLetter !== index ? 'blur(8px) grayscale(1)' : 'none',
-                    opacity: focusedLetter !== null && focusedLetter !== index ? 0.3 : 1,
-                    transform: focusedLetter === index ? 'scale(1.1)' : 'scale(1)',
-                    color: focusedLetter === index ? '#FFFFFF' : '#333333'
-                  }}
-                >
-                  {item.letter}
-                </span>
-              </motion.div>
+                letter={item.letter}
+                gradient={item.gradient}
+                title={item.title}
+                description={item.description}
+                isFocused={focusedLetter === index}
+                shouldDim={focusedLetter !== null && focusedLetter !== index}
+                showExplanation={isPhase1Complete && focusedLetter === index}
+              />
             ))}
-          </div>
+          </motion.div>
+        </div>
 
-          {/* Dynamic Content based on focused letter */}
-          <div className="mt-12 md:mt-20 h-32 md:h-40 text-center max-w-2xl px-6">
-            <AnimatePresence mode="wait">
-              {focusedLetter !== null && (
-                <motion.div
-                  key={focusedLetter}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.4 }}
-                >
-                  <h3 className="text-white text-2xl md:text-4xl font-bold mb-4" style={{ fontFamily: "'Inter Tight', sans-serif" }}>
-                    {letters[focusedLetter].title}
-                  </h3>
-                  <p className="text-gray-400 text-lg md:text-xl leading-relaxed" style={{ fontFamily: "'Inter Tight', sans-serif" }}>
-                    {letters[focusedLetter].description}
-                  </p>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </motion.div>
+        {/* Background Gradient Effect */}
+        <div 
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: focusedLetter !== null 
+              ? 'radial-gradient(circle at center, rgba(255,255,255,0) 0%, rgba(249,250,251,0.8) 100%)'
+              : 'transparent',
+            transition: 'background 0.6s ease'
+          }}
+        />
       </div>
     </section>
+  );
+};
+
+const Letter = ({ letter, gradient, title, description, isFocused, shouldDim, showExplanation }) => {
+  return (
+    <motion.div
+      className="relative flex flex-col items-center"
+      animate={{
+        opacity: shouldDim ? 0.3 : 1,
+        scale: isFocused ? 1.15 : 1
+      }}
+      transition={{
+        duration: 0.6,
+        ease: [0.4, 0, 0.2, 1]
+      }}
+      style={{
+        position: 'relative'
+      }}
+    >
+      {/* The Letter */}
+      <motion.span
+        className={`font-bold bg-linear-to-r ${gradient} bg-clip-text`}
+        style={{
+          fontFamily: "'Inter Tight', sans-serif",
+          fontSize: 'clamp(5rem, 15vw, 12rem)',
+          lineHeight: '1',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
+          color: 'transparent',
+          display: 'inline-block',
+          position: 'relative'
+        }}
+      >
+        {letter}
+      </motion.span>
+
+      {/* Description Below the Letter */}
+      {showExplanation && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.4 }}
+          style={{
+            position: 'absolute',
+            top: '100%',
+            marginTop: 'clamp(15px, 2vw, 25px)',
+            textAlign: 'center',
+            pointerEvents: 'none',
+            width: 'max-content',
+            maxWidth: '400px'
+          }}
+        >
+          <h3
+            className={`font-bold mb-2 bg-linear-to-r ${gradient}`}
+            style={{
+              fontFamily: "'Inter Tight', sans-serif",
+              fontSize: 'clamp(1.25rem, 2.5vw, 2rem)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              color: 'transparent',
+              marginBottom: 'clamp(6px, 1vw, 10px)',
+              whiteSpace: 'nowrap'
+            }}
+          >
+            {title}
+          </h3>
+          <p
+            className="text-gray-900"
+            style={{
+              fontFamily: "'Inter Tight', sans-serif",
+              fontSize: 'clamp(0.875rem, 1.5vw, 1.125rem)',
+              lineHeight: '1.5',
+              fontWeight: '500',
+              whiteSpace: 'normal'
+            }}
+          >
+            {description}
+          </p>
+        </motion.div>
+      )}
+
+      {/* Glow effect when focused */}
+      {isFocused && (
+        <motion.div
+          className={`absolute inset-0 bg-linear-to-r ${gradient} blur-2xl`}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.2 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+          style={{
+            zIndex: -1,
+            transform: 'scale(1.3)'
+          }}
+        />
+      )}
+    </motion.div>
   );
 };
 
