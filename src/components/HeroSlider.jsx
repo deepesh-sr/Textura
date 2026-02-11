@@ -65,8 +65,26 @@ const HeroSlider = () => {
   return (
     <section className="relative min-h-screen bg-pure-white" style={{ paddingTop: '32px', paddingBottom: '32px' }}>
       <Container>
-        <div className="rounded-2xl overflow-hidden shadow-2xl h-[calc(100vh-120px)] lg:h-[calc(100vh-120px)] min-h-150 md:min-h-0">
-          <div className="flex flex-col md:flex-row h-full gap-3 p-3 bg-[#F2F2F2]">
+        <div 
+          className="rounded-2xl overflow-hidden shadow-2xl h-150 lg:h-150 min-h-150 md:min-h-0"
+          style={{ 
+            borderRadius: '16px', 
+            overflow: 'hidden', 
+            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+            minHeight: '600px'
+          }}
+        >
+          <div 
+            className="flex flex-col md:flex-row h-full gap-3 p-3 bg-[#F2F2F2]"
+            style={{ 
+              display: 'flex', 
+              flexDirection: window.innerWidth < 768 ? 'column' : 'row',
+              height: '100%',
+              gap: '12px',
+              padding: '12px',
+              backgroundColor: '#F2F2F2'
+            }}
+          >
             {slides.map((slide, index) => (
               <SliderCard
                 key={slide.id}

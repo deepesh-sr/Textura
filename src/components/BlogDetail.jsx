@@ -61,7 +61,7 @@ const BlogDetail = () => {
         />
         <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent" />
         
-        <div className="absolute bottom-0 left-0 w-full py-12 md:py-20">
+        <div className="absolute bottom-0 left-0 w-full py-12 md:py-20" style={{ padding: '80px 0' }}>
           <Container>
             <div className="max-w-4xl">
               <Link to="/blogs" className="inline-flex items-center gap-2 text-white no-underline mb-8 md:mb-10 text-[10px] md:text-xs font-extrabold tracking-[0.2em] uppercase hover:opacity-70 transition-opacity">
@@ -89,7 +89,7 @@ const BlogDetail = () => {
       </div>
 
       {/* Content */}
-      <div className="py-16 md:py-24">
+      <div className="py-16 md:py-24" style={{ padding: '96px 0' }}>
         <Container>
           <div className="max-w-3xl mx-auto">
             <div 

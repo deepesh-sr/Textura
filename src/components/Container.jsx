@@ -7,9 +7,11 @@ const Container = ({ children, fullWidth = false, className = '' }) => {
     <div 
       className={`mx-auto w-full ${className}`}
       style={{ 
-        paddingLeft: 'clamp(20px, 5vw, 80px)',
-        paddingRight: 'clamp(20px, 5vw, 80px)',
-        maxWidth: '1600px'
+        paddingLeft: 'clamp(20px, 5vw, 60px)',
+        paddingRight: 'clamp(20px, 5vw, 60px)',
+        maxWidth: '1440px',
+        margin: '0 auto',
+        width: '100%'
       }}
     >
       {children}

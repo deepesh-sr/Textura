@@ -19,20 +19,32 @@ const Navbar = () => {
     <header 
       className="sticky top-0 z-100 w-full transition-all duration-400"
       style={{ 
+        position: 'sticky',
+        top: 0,
+        zIndex: 100,
+        width: '100%',
         backgroundColor: scrolled ? 'rgba(255, 255, 255, 0.7)' : '#FFFFFF',
         backdropFilter: scrolled ? 'blur(20px) saturate(180%)' : 'none',
         WebkitBackdropFilter: scrolled ? 'blur(20px) saturate(180%)' : 'none',
         borderBottom: scrolled ? '1px solid rgba(255, 255, 255, 0.3)' : '1px solid #F3F4F6',
+        transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
         boxShadow: scrolled ? '0 10px 30px -10px rgba(0,0,0,0.05)' : 'none'
       }}
     >
       <nav 
         className="max-w-400 mx-auto px-6 md:px-12 flex items-center justify-between transition-all duration-400"
         style={{ 
+          maxWidth: '1440px',
+          margin: '0 auto',
+          padding: '0 clamp(24px, 5vw, 48px)',
           height: scrolled ? '72px' : '96px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
         }}
       >
-        <div className="flex items-center justify-between w-full">
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
           {/* Left Column - Logo */}
           <div className="shrink-0">
             <Logo />
@@ -66,10 +78,28 @@ const Navbar = () => {
 
       {/* Mobile Navigation Dropdown */}
       {isMenuOpen && (
-        <div className="lg:hidden bg-white border-b border-gray-100 absolute w-full left-0 animate-in fade-in slide-in-from-top-1">
-          <div className="px-6 py-8 flex flex-col gap-6 items-center">
+        <div 
+          className="lg:hidden bg-white border-b border-gray-100 absolute w-full left-0 animate-in fade-in slide-in-from-top-1"
+          style={{ 
+            backgroundColor: '#FFFFFF',
+            borderBottom: '1px solid #F3F4F6',
+            position: 'absolute',
+            width: '100%',
+            left: 0
+          }}
+        >
+          <div 
+            className="px-6 py-8 flex flex-col gap-6 items-center"
+            style={{ 
+              padding: '32px 24px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '24px',
+              alignItems: 'center'
+            }}
+          >
             <Navigation mobile onItemClick={() => setIsMenuOpen(false)} />
-            <div className="w-full h-px bg-gray-100"></div>
+            <div style={{ width: '100%', height: '1px', backgroundColor: '#F3F4F6' }}></div>
             <SignIn />
           </div>
         </div>

@@ -41,7 +41,15 @@ const BlogList = () => {
   );
 
   return (
-    <div style={{ backgroundColor: '#F2F2F2', minHeight: '100vh', padding: '80px 0 md:padding:120px 0' }} className="py-20 md:py-32">
+    <div 
+      style={{ 
+        backgroundColor: '#F2F2F2', 
+        minHeight: '100vh', 
+        paddingTop: '80px', 
+        paddingBottom: '120px' 
+      }} 
+      className="py-20 md:py-32"
+    >
       <Helmet>
         <title>Insights & Stories | Textura Digital Strategy</title>
         <meta name="description" content="Explore the latest trends in content management, SEO optimization, and digital growth strategy from the Textura editorial team." />
@@ -55,7 +63,7 @@ const BlogList = () => {
       </Helmet>
       
       <Container>
-        <div className="mb-12 md:mb-20 max-w-3xl">
+        <div className="mb-12 md:mb-20 max-w-3xl" style={{ marginBottom: '64px' }}>
           <h1 className="font-extrabold text-black leading-tight md:leading-none mb-6 md:mb-8 tracking-tighter" style={{ 
             fontFamily: "'Inter Tight', sans-serif", 
             fontSize: 'clamp(2.5rem, 8vw, 6rem)', 
@@ -69,10 +77,24 @@ const BlogList = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+          style={{ 
+            display: 'grid',
+            gap: '32px'
+          }}
+        >
           {blogs.map(blog => (
             <Link key={blog._id} to={`/blog/${blog.slug}`} style={{ textDecoration: 'none' }} className="group">
-              <div className="bg-white rounded-4xl p-6 h-full transition-all duration-400 border border-transparent hover:-translate-y-2 hover:shadow-2xl hover:border-gray-100">
+              <div 
+                className="bg-white rounded-4xl p-6 h-full transition-all duration-400 border border-transparent hover:-translate-y-2 hover:shadow-2xl hover:border-gray-100"
+                style={{ 
+                  backgroundColor: '#FFFFFF',
+                  borderRadius: '32px',
+                  padding: '24px',
+                  height: '100%'
+                }}
+              >
                 <div className="h-64 md:h-80 rounded-2xl md:rounded-3xl overflow-hidden mb-8">
                   <img 
                     src={blog.featuredImage || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643'} 
