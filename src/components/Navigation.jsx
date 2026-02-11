@@ -4,10 +4,18 @@ import { Link, useLocation } from 'react-router-dom';
 const Navigation = ({ mobile = false, onItemClick = () => {} }) => {
   const [isAdmin, setIsAdmin] = useState(false);
   const location = useLocation();
+  const [currentHash, setCurrentHash] = useState(window.location.hash);
 
   useEffect(() => {
     const role = localStorage.getItem('role');
     setIsAdmin(role === 'Admin');
+
+    const handleHashUpdate = () => {
+      setCurrentHash(window.location.hash);
+    };
+
+    window.addEventListener('hashchange', handleHashUpdate);
+    return () => window.removeEventListener('hashchange', handleHashUpdate);
   }, []);
 
   const navLinks = [
@@ -24,33 +32,76 @@ const Navigation = ({ mobile = false, onItemClick = () => {} }) => {
   return (
     <ul style={listStyles}>
       {navLinks.map((link) => {
-        const isActive = location.pathname === link.href;
-        const isHashLink = link.href.startsWith('/#');
+        const isHashLink = link.href.includes('#');
+        const linkPath = isHashLink ? link.href.split('#')[0] : link.href;
+        const linkHash = isHashLink ? '#' + link.href.split('#')[1] : '';
+
+        // Determine active state
+        let isActive = false;
+        if (isHashLink) {
+          isActive = location.pathname === (linkPath || '/') && currentHash === linkHash;
+        } else {
+          // Home is only active if no hash and on root
+          if (link.href === '/') {
+            isActive = location.pathname === '/' && currentHash === '';
+          } else {
+            isActive = location.pathname === link.href;
+          }
+        }
 
         return (
           <li key={link.name} className={mobile ? 'w-full text-center' : ''}>
             {isHashLink ? (
               <a
                 href={link.href}
-                onClick={onItemClick}
+                onClick={(e) => {
+                  // If we're already on root, just change hash, otherwise navigate
+                  if (location.pathname !== '/') {
+                    // Let the default link behavior work for navigation
+                  }
+                  onItemClick();
+                }}
                 className="group"
                 style={{ 
                   textDecoration: 'none',
                   fontSize: mobile ? '16px' : '11px',
                   fontWeight: '800',
                   letterSpacing: '0.15em',
-                  color: '#000000',
+                  color: isActive ? '#2563EB' : '#000000',
                   padding: '8px 0',
                   fontFamily: "'Inter Tight', sans-serif",
-                  display: 'inline-block'
+                  display: 'inline-block',
+                  position: 'relative'
                 }}
               >
                 {link.name}
+                {!mobile && (
+                  <span 
+                    style={{ 
+                      position: 'absolute',
+                      bottom: 0,
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                      width: isActive ? '4px' : '0%',
+                      height: '4px',
+                      borderRadius: '50%',
+                      backgroundColor: '#2563EB',
+                      transition: 'width 0.3s ease, background-color 0.3s'
+                    }}
+                    className="group-hover:w-1 group-hover:bg-blue-600"
+                  />
+                )}
               </a>
             ) : (
               <Link
                 to={link.href}
-                onClick={onItemClick}
+                onClick={() => {
+                  // When clicking HOME, manually clear the hash if we're on the root page
+                  if (link.href === '/') {
+                    window.location.hash = '';
+                  }
+                  onItemClick();
+                }}
                 className="group"
                 style={{ 
                   textDecoration: 'none',
