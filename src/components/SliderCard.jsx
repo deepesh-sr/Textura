@@ -8,7 +8,10 @@ const SliderCard = ({ slide, isActive, onClick }) => {
       }`}
       onClick={onClick}
       style={{ 
-        boxShadow: '0 10px 40px rgba(0, 0, 0, 0.3)'
+        boxShadow: '0 10px 40px rgba(0, 0, 0, 0.3)',
+        borderRadius: '16px',
+        overflow: 'hidden',
+        position: 'relative'
       }}
     >
       {/* Background Image/Video - Only this gets blurred */}
@@ -26,12 +29,25 @@ const SliderCard = ({ slide, isActive, onClick }) => {
       </div>
 
       {/* Content */}
-      <div className="relative h-full flex flex-col justify-between p-6 md:p-8">
+      <div 
+        className="relative h-full flex flex-col justify-between p-6 md:p-8"
+        style={{ 
+          position: 'relative',
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          padding: '32px'
+        }}
+      >
         {/* Top Badge - Horizontal when active, Vertical when inactive */}
-        <div className={`flex ${isActive ? 'justify-end' : 'justify-center'}`}>
+        <div className={`flex ${isActive ? 'justify-end' : 'justify-center'}`} style={{ display: 'flex' }}>
           {isActive ? (
             // Horizontal Badge (Active - Top Right)
-            <div className="bg-blue-600/80 backdrop-blur-sm rounded-full animate-fade-in px-4 py-2 md:px-6 md:py-3">
+            <div 
+              className="bg-blue-600/80 backdrop-blur-sm rounded-full animate-fade-in px-4 py-2 md:px-6 md:py-3"
+              style={{ padding: '12px 24px', backgroundColor: 'rgba(37, 99, 235, 0.8)', borderRadius: '100px' }}
+            >
               <span
                 className="text-white text-xs md:text-sm font-medium tracking-wide"
                 style={{ fontFamily: "'Inter Tight', sans-serif" }}
@@ -70,13 +86,14 @@ const SliderCard = ({ slide, isActive, onClick }) => {
             <div className="w-full max-w-6xl animate-fade-in">
               <div className="flex flex-col md:flex-row gap-6 md:gap-12 items-start md:items-end">
                 {/* Left - Headline */}
-                <div className="flex-1">
+                <div className="flex-1" style={{ flex: 1 }}>
                   <h1
                     className="text-white font-bold leading-tight"
                     style={{ 
                       fontFamily: "'Inter Tight', sans-serif",
                       fontSize: 'clamp(2.5rem, 5vw, 3.75rem)',
-                      marginBottom: '24px'
+                      marginBottom: '24px',
+                      paddingRight: '20px'
                     }}
                   >
                     {slide.title}
@@ -84,13 +101,14 @@ const SliderCard = ({ slide, isActive, onClick }) => {
                 </div>
 
                 {/* Right - Description and CTA */}
-                <div className="flex-1 flex flex-col" style={{ gap: '24px' }}>
+                <div className="flex-1 flex flex-col" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '24px', paddingLeft: '20px' }}>
                   {/* Supporting Text */}
                   <p
                     className="text-gray-200 leading-relaxed"
                     style={{ 
                       fontFamily: "'Inter Tight', sans-serif",
-                      fontSize: 'clamp(1rem, 2vw, 1.125rem)'
+                      fontSize: 'clamp(1rem, 2vw, 1.125rem)',
+                      marginBottom: '16px'
                     }}
                   >
                     {slide.description}
