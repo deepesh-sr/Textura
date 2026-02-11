@@ -42,10 +42,10 @@ const StatsSection = () => {
   ];
 
   return (
-    <section className="bg-pure-white py-12 md:py-20">
+    <section className="bg-pure-white py-12 md:py-20" style={{ padding: '80px 0' }}>
       <Container>
         {/* Animated Text Section */}
-        <div className="mb-12 md:mb-20">
+        <div className="mb-12 md:mb-20" style={{ marginBottom: '80px' }}>
           <motion.p
           ref={textRef}
           className="text-pure-black leading-relaxed"
@@ -81,6 +81,11 @@ const StatsSection = () => {
       <motion.div
         ref={statsRef}
         className="bg-pure-black rounded-2xl px-6 py-12 md:px-10 md:py-16"
+        style={{ 
+          backgroundColor: '#000000', 
+          borderRadius: '16px', 
+          padding: '60px 40px' 
+        }}
         initial={{ opacity: 0, y: 50 }}
         animate={isStatsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
         transition={{ duration: 0.6 }}

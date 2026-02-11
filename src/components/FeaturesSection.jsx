@@ -30,10 +30,10 @@ const FeaturesSection = () => {
   ];
 
   return (
-    <section className="bg-pure-white py-12 md:py-20">
+    <section className="bg-pure-white py-12 md:py-20" style={{ padding: '80px 0', backgroundColor: '#FFFFFF' }}>
       <Container>
         {/* Section Header */}
-        <div className="mb-6 md:mb-12">
+        <div className="mb-6 md:mb-12" style={{ marginBottom: '48px' }}>
           <h2
             className="text-pure-black font-semibold text-base md:text-xl mb-2 md:mb-4"
             style={{
@@ -53,7 +53,14 @@ const FeaturesSection = () => {
         </div>
 
         {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mt-12 md:mt-16">
+        <div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mt-12 md:mt-16"
+          style={{ 
+            display: 'grid',
+            gap: '24px',
+            marginTop: '64px'
+          }}
+        >
           {features.map((feature) => (
             <FeatureCard key={feature.id} feature={feature} />
           ))}
@@ -67,6 +74,12 @@ const FeatureCard = ({ feature }) => {
   return (
     <motion.div
       className="group relative bg-gray-50 border border-gray-200 rounded-2xl cursor-pointer p-8 md:p-10"
+      style={{ 
+        padding: '32px',
+        backgroundColor: '#F9FAFB',
+        border: '1px solid #E5E7EB',
+        borderRadius: '16px'
+      }}
       initial={{ y: 0, boxShadow: 'none' }}
       whileHover={{
         y: -8,

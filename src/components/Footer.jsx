@@ -35,9 +35,16 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-white border-t border-gray-100 py-16 md:py-24">
+    <footer className="bg-white border-t border-gray-100 py-16 md:py-24" style={{ padding: '96px 0 48px', backgroundColor: '#FFFFFF', borderTop: '1px solid #F3F4F6' }}>
       <Container>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16 md:mb-24">
+        <div 
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16 md:mb-24"
+          style={{ 
+            display: 'grid',
+            gap: '48px',
+            marginBottom: '80px'
+          }}
+        >
           {/* Services Column */}
           <div>
             <h3 className="font-extrabold text-lg mb-8 text-black uppercase tracking-wider" style={{ fontFamily: "'Inter Tight', sans-serif" }}>Services</h3>

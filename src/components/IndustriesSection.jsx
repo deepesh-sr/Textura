@@ -98,9 +98,9 @@ const IndustriesSection = () => {
   ];
 
   return (
-    <section className="bg-pure-white py-12 md:py-20 overflow-hidden">
+    <section className="bg-pure-white py-12 md:py-20 overflow-hidden" style={{ padding: '80px 0', backgroundColor: '#FFFFFF' }}>
       <Container>
-        <div className="mb-12 md:mb-16 text-center md:text-left">
+        <div className="mb-12 md:mb-16 text-center md:text-left" style={{ marginBottom: '64px' }}>
           <h2
             className="text-pure-black font-semibold text-2xl md:text-3xl mb-4 md:mb-6"
             style={{
@@ -135,13 +135,24 @@ const IndustryCard = ({ industry }) => {
     <motion.div
       className="bg-gray-50 border border-gray-100 rounded-2xl p-6 md:p-8 flex flex-col items-center justify-center text-center group hover:bg-white hover:shadow-xl transition-all duration-300"
       whileHover={{ y: -5 }}
+      style={{
+        padding: '32px 24px',
+        backgroundColor: '#F9FAFB',
+        border: '1px solid #F3F4F6',
+        borderRadius: '16px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center'
+      }}
     >
-      <div className="text-blue-600 mb-4 transition-transform duration-300 group-hover:scale-110">
+      <div className="text-blue-600 mb-4 transition-transform duration-300 group-hover:scale-110" style={{ marginBottom: '16px' }}>
         {industry.icon}
       </div>
       <h4
         className="text-gray-900 font-semibold text-sm md:text-base lg:text-lg"
-        style={{ fontFamily: "'Inter Tight', sans-serif" }}
+        style={{ fontFamily: "'Inter Tight', sans-serif", fontWeight: '600' }}
       >
         {industry.title}
       </h4>

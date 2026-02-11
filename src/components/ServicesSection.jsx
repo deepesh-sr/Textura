@@ -37,10 +37,19 @@ const ServicesSection = () => {
   ];
 
   return (
-    <section className="bg-gray-100 py-12 md:py-20">
+    <section className="bg-gray-100 py-12 md:py-20" style={{ padding: '80px 0', backgroundColor: '#F3F4F6' }}>
       <Container>
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start gap-6 mb-12 md:mb-16">
+        <div 
+          className="flex flex-col md:flex-row justify-between items-start gap-6 mb-12 md:mb-16"
+          style={{ 
+            display: 'flex', 
+            flexDirection: window.innerWidth < 768 ? 'column' : 'row',
+            justifyContent: 'space-between',
+            gap: '24px',
+            marginBottom: '64px'
+          }}
+        >
           <div className="max-w-4xl">
             <h2
               className="text-pure-black font-semibold text-2xl md:text-3xl mb-4 md:mb-6"
@@ -81,11 +90,21 @@ const ServicesSection = () => {
         </div>
 
         {/* View More Button */}
-        <div className="flex justify-center mt-12 md:mt-16">
+        <div className="flex justify-center mt-12 md:mt-16" style={{ marginTop: '64px', display: 'flex', justifyContent: 'center' }}>
           <button
             className="bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-full flex items-center gap-2 transition-all duration-300 hover:shadow-lg px-8 py-4 md:px-10 md:py-5 text-lg"
             style={{
               fontFamily: "'Inter Tight', sans-serif",
+              padding: '20px 48px',
+              borderRadius: '100px',
+              backgroundColor: '#2563EB',
+              color: '#FFFFFF',
+              border: 'none',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              fontSize: '18px'
             }}
           >
             Explore More Services
@@ -108,7 +127,10 @@ const ServiceCard = ({ service }) => {
       style={{
         height: '400px',
         border: '1px solid #E5E7EB',
-        backgroundColor: '#FFFFFF'
+        backgroundColor: '#FFFFFF',
+        borderRadius: '24px',
+        overflow: 'hidden',
+        padding: '0'
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -145,7 +167,18 @@ const ServiceCard = ({ service }) => {
       </motion.div>
 
       {/* Content Container */}
-      <div className="relative h-full flex flex-col justify-between" style={{ padding: '32px' }}>
+      <div 
+        className="relative h-full flex flex-col justify-between" 
+        style={{ 
+          padding: '32px',
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          position: 'relative',
+          zIndex: 10
+        }}
+      >
         {/* Title - Always Visible, changes color on hover */}
         <motion.h3
           className="font-semibold z-10"
@@ -153,7 +186,9 @@ const ServiceCard = ({ service }) => {
             fontFamily: "'Inter Tight', sans-serif",
             fontSize: 'clamp(1.125rem, 1.5vw, 1.375rem)',
             lineHeight: '1.2',
-            maxWidth: '100%'
+            maxWidth: '100%',
+            margin: '0',
+            paddingRight: '10px'
           }}
           initial={false}
           animate={{

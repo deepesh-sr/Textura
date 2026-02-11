@@ -31,10 +31,10 @@ const CaseStudiesSection = () => {
   ];
 
   return (
-    <section className="bg-white py-12 md:py-20">
+    <section className="bg-white py-12 md:py-20" style={{ padding: '80px 0', backgroundColor: '#FFFFFF' }}>
       <Container>
         {/* Section Header */}
-        <div className="mb-12 md:mb-16">
+        <div className="mb-12 md:mb-16" style={{ marginBottom: '64px' }}>
           <h2
             className="text-pure-black font-semibold text-2xl md:text-3xl mb-4 md:mb-6"
             style={{
@@ -61,11 +61,21 @@ const CaseStudiesSection = () => {
         </div>
 
         {/* View More Button */}
-        <div className="flex justify-start mt-12 md:mt-16">
+        <div className="flex justify-start mt-12 md:mt-16" style={{ marginTop: '64px', display: 'flex', justifyContent: 'flex-start' }}>
           <button
             className="bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-full flex items-center gap-2 transition-all duration-300 hover:shadow-lg px-8 py-4 md:px-10 md:py-5 text-lg"
             style={{
               fontFamily: "'Inter Tight', sans-serif",
+              padding: '20px 48px',
+              borderRadius: '100px',
+              backgroundColor: '#2563EB',
+              color: '#FFFFFF',
+              border: 'none',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              fontSize: '18px'
             }}
           >
             View More
@@ -132,6 +142,11 @@ const CaseStudyCard = ({ caseStudy }) => {
           initial={false}
           animate={{
             padding: isHovered ? '40px 32px' : '32px'
+          }}
+          style={{ 
+            padding: '32px',
+            display: 'flex',
+            flexDirection: 'column'
           }}
           transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
         >

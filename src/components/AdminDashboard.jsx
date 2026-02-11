@@ -226,10 +226,21 @@ const AdminDashboard = ({ onClose }) => {
   if (loading) return <div style={{ padding: '80px', textAlign: 'center', fontSize: '18px', color: '#666666' }}>Loading Admin Panel...</div>;
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-gray-50 flex flex-col" style={{ minHeight: '100vh', backgroundColor: '#F9FAFB', display: 'flex', flexDirection: 'column' }}>
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
-        <div className="max-w-400 mx-auto px-4 md:px-8 h-16 md:h-20 flex items-center justify-between">
+      <header className="bg-white border-b border-gray-200 sticky top-0 z-50" style={{ backgroundColor: '#FFFFFF', borderBottom: '1px solid #E5E7EB', position: 'sticky', top: 0, zIndex: 50 }}>
+        <div 
+          className="max-w-400 mx-auto px-4 md:px-8 h-16 md:h-20 flex items-center justify-between"
+          style={{ 
+            maxWidth: '1600px', 
+            margin: '0 auto', 
+            padding: '0 32px', 
+            height: '80px', 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'space-between' 
+          }}
+        >
           <div className="flex items-center gap-4">
             <h1 className="text-xl md:text-2xl font-bold text-gray-900" style={{ fontFamily: "'Inter Tight', sans-serif" }}>
               CMS Dashboard
@@ -269,7 +280,14 @@ const AdminDashboard = ({ onClose }) => {
         </aside>
 
         {/* Content Area */}
-        <main className="flex-1 p-4 md:p-8 overflow-x-hidden">
+        <main 
+          className="flex-1 p-4 md:p-8 overflow-x-hidden"
+          style={{ 
+            flex: 1, 
+            padding: '32px', 
+            overflowX: 'hidden' 
+          }}
+        >
           <Container>
             <div style={{ marginBottom: '48px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
               <div>
