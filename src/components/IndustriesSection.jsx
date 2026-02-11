@@ -98,57 +98,29 @@ const IndustriesSection = () => {
   ];
 
   return (
-    <section className="bg-gray-900" style={{ padding: '80px 0' }}>
+    <section className="bg-pure-white py-12 md:py-20 overflow-hidden">
       <Container>
-        {/* Section Header */}
-        <div className="flex justify-between items-start" style={{ marginBottom: '24px' }}>
-          <div>
-            <h2
-              className="text-white font-semibold"
-              style={{
-                fontFamily: "'Inter Tight', sans-serif",
-                fontSize: 'clamp(1.5rem, 2vw, 2rem)',
-                marginBottom: '16px'
-              }}
-            >
-              Industries
-            </h2>
-            <p
-              className="text-gray-300"
-              style={{
-                fontFamily: "'Inter Tight', sans-serif",
-                fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
-                fontWeight: '500',
-                lineHeight: '1.3',
-                maxWidth: '900px'
-              }}
-            >
-              Our comprehensive experience across these sectors enables us to deliver tailored solutions that drive innovation and efficiency for our clients
-            </p>
-          </div>
-          <a
-            href="/industries"
-            className="text-white hover:text-blue-400 font-medium flex items-center gap-2"
+        <div className="mb-12 md:mb-16 text-center md:text-left">
+          <h2
+            className="text-pure-black font-semibold text-2xl md:text-3xl mb-4 md:mb-6"
             style={{
               fontFamily: "'Inter Tight', sans-serif",
-              fontSize: 'clamp(1rem, 1.5vw, 1.125rem)',
-              transition: 'color 0.3s ease',
-              whiteSpace: 'nowrap',
-              marginTop: '8px'
             }}
           >
-            View all
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </a>
+            Industries
+          </h2>
+          <p
+            className="text-gray-700 text-2xl md:text-4xl lg:text-5xl font-medium leading-tight md:leading-snug max-w-4xl"
+            style={{
+              fontFamily: "'Inter Tight', sans-serif",
+            }}
+          >
+            Transforming diverse sectors with intelligent content solutions and digital innovation.
+          </p>
         </div>
 
         {/* Industries Grid */}
-        <div
-          className="grid grid-cols-1 md:grid-cols-2"
-          style={{ gap: '20px', marginTop: '60px' }}
-        >
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6 lg:gap-8">
           {industries.map((industry) => (
             <IndustryCard key={industry.id} industry={industry} />
           ))}
@@ -159,91 +131,21 @@ const IndustriesSection = () => {
 };
 
 const IndustryCard = ({ industry }) => {
-  const [isHovered, setIsHovered] = useState(false);
-
   return (
-    <motion.a
-      href={`/industries/${industry.id}`}
-      className="group relative rounded-2xl overflow-hidden cursor-pointer block"
-      style={{
-        padding: '32px',
-        border: '1px solid rgba(255, 255, 255, 0.1)',
-        backgroundColor: 'rgba(255, 255, 255, 0.05)',
-        backdropFilter: 'blur(10px)'
-      }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      whileHover={{ scale: 1.02 }}
-      transition={{ duration: 0.3 }}
+    <motion.div
+      className="bg-gray-50 border border-gray-100 rounded-2xl p-6 md:p-8 flex flex-col items-center justify-center text-center group hover:bg-white hover:shadow-xl transition-all duration-300"
+      whileHover={{ y: -5 }}
     >
-      {/* Colored Background - Only visible on hover */}
-      <motion.div
-        className="absolute inset-0"
-        initial={false}
-        animate={{
-          opacity: isHovered ? 1 : 0
-        }}
-        transition={{ duration: 0.4 }}
-        style={{
-          background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(37, 99, 235, 0.1) 100%)',
-          borderRadius: '16px'
-        }}
-      />
-
-      {/* Content */}
-      <div className="relative flex items-center justify-between">
-        {/* Icon and Title */}
-        <div className="flex items-center gap-4">
-          {/* Icon Container */}
-          <motion.div
-            className="shrink-0"
-            initial={false}
-            animate={{
-              scale: isHovered ? 1.1 : 1,
-              rotate: isHovered ? 5 : 0
-            }}
-            transition={{ duration: 0.3 }}
-          >
-            <div className="text-gray-400" style={{ color: isHovered ? '#ffffff' : '#9CA3AF' }}>
-              {industry.icon}
-            </div>
-          </motion.div>
-
-          {/* Title */}
-          <motion.h3
-            className="font-semibold"
-            style={{
-              fontFamily: "'Inter Tight', sans-serif",
-              fontSize: 'clamp(1.125rem, 1.5vw, 1.375rem)',
-              color: '#ffffff'
-            }}
-          >
-            {industry.title}
-          </motion.h3>
-        </div>
-
-        {/* Arrow Icon */}
-        <motion.div
-          initial={false}
-          animate={{
-            x: isHovered ? 5 : 0,
-            opacity: isHovered ? 1 : 0.5
-          }}
-          transition={{ duration: 0.3 }}
-        >
-          <svg 
-            width="20" 
-            height="20" 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            stroke="white" 
-            strokeWidth="2"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </motion.div>
+      <div className="text-blue-600 mb-4 transition-transform duration-300 group-hover:scale-110">
+        {industry.icon}
       </div>
-    </motion.a>
+      <h4
+        className="text-gray-900 font-semibold text-sm md:text-base lg:text-lg"
+        style={{ fontFamily: "'Inter Tight', sans-serif" }}
+      >
+        {industry.title}
+      </h4>
+    </motion.div>
   );
 };
 

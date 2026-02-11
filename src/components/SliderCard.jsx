@@ -2,7 +2,9 @@ const SliderCard = ({ slide, isActive, onClick }) => {
   return (
     <div
       className={`relative transition-all duration-700 ease-in-out cursor-pointer rounded-2xl overflow-hidden group ${
-        isActive ? 'flex-3' : 'flex-[0.5] hover:flex-[0.6]'
+        isActive 
+          ? 'flex-10 md:flex-3' 
+          : 'flex-1 md:flex-[0.5] hover:md:flex-[0.6]'
       }`}
       onClick={onClick}
       style={{ 
@@ -24,14 +26,14 @@ const SliderCard = ({ slide, isActive, onClick }) => {
       </div>
 
       {/* Content */}
-      <div className="relative h-full flex flex-col justify-between" style={{ padding: '32px' }}>
+      <div className="relative h-full flex flex-col justify-between p-6 md:p-8">
         {/* Top Badge - Horizontal when active, Vertical when inactive */}
         <div className={`flex ${isActive ? 'justify-end' : 'justify-center'}`}>
           {isActive ? (
             // Horizontal Badge (Active - Top Right)
-            <div className="bg-blue-600/80 backdrop-blur-sm rounded-full animate-fade-in" style={{ padding: '12px 24px' }}>
+            <div className="bg-blue-600/80 backdrop-blur-sm rounded-full animate-fade-in px-4 py-2 md:px-6 md:py-3">
               <span
-                className="text-white text-sm font-medium tracking-wide"
+                className="text-white text-xs md:text-sm font-medium tracking-wide"
                 style={{ fontFamily: "'Inter Tight', sans-serif" }}
               >
                 {slide.badge}
@@ -47,7 +49,7 @@ const SliderCard = ({ slide, isActive, onClick }) => {
               }}
             >
               <span
-                className="text-white text-xs font-medium tracking-wider block"
+                className="text-white text-[10px] md:text-xs font-medium tracking-wider block"
                 style={{ 
                   fontFamily: "'Inter Tight', sans-serif",
                   writingMode: 'vertical-rl',
@@ -62,11 +64,11 @@ const SliderCard = ({ slide, isActive, onClick }) => {
         </div>
 
         {/* Bottom Content */}
-        <div className="flex flex-col items-center">
+        <div className={`flex flex-col items-center ${!isActive && 'md:opacity-0'}`}>
           {isActive ? (
             // Active Card Content
             <div className="w-full max-w-6xl animate-fade-in">
-              <div className="flex gap-12 items-end">
+              <div className="flex flex-col md:flex-row gap-6 md:gap-12 items-start md:items-end">
                 {/* Left - Headline */}
                 <div className="flex-1">
                   <h1

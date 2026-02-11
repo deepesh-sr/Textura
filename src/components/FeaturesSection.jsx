@@ -30,27 +30,22 @@ const FeaturesSection = () => {
   ];
 
   return (
-    <section className="bg-pure-white" style={{ padding: '80px 0' }}>
+    <section className="bg-pure-white py-12 md:py-20">
       <Container>
         {/* Section Header */}
-        <div style={{ marginBottom: '24px' }}>
+        <div className="mb-6 md:mb-12">
           <h2
-            className="text-pure-black font-semibold"
+            className="text-pure-black font-semibold text-base md:text-xl mb-2 md:mb-4"
             style={{
               fontFamily: "'Inter Tight', sans-serif",
-              fontSize: 'clamp(1rem, 1.5vw, 1.25rem)',
-              marginBottom: '16px'
             }}
           >
             Why Textura
           </h2>
           <h3
-            className="text-gray-700"
+            className="text-gray-700 text-3xl md:text-5xl lg:text-6xl font-medium leading-tight md:leading-tight"
             style={{
               fontFamily: "'Inter Tight', sans-serif",
-              fontSize: 'clamp(2rem, 4vw, 3rem)',
-              fontWeight: '500',
-              lineHeight: '1.2'
             }}
           >
             The intelligent partner for your digital transformation
@@ -58,10 +53,7 @@ const FeaturesSection = () => {
         </div>
 
         {/* Features Grid */}
-        <div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-          style={{ gap: '24px', marginTop: '60px' }}
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mt-12 md:mt-16">
           {features.map((feature) => (
             <FeatureCard key={feature.id} feature={feature} />
           ))}
@@ -74,8 +66,7 @@ const FeaturesSection = () => {
 const FeatureCard = ({ feature }) => {
   return (
     <motion.div
-      className="group relative bg-gray-50 border border-gray-200 rounded-2xl cursor-pointer"
-      style={{ padding: '32px' }}
+      className="group relative bg-gray-50 border border-gray-200 rounded-2xl cursor-pointer p-8 md:p-10"
       initial={{ y: 0, boxShadow: 'none' }}
       whileHover={{
         y: -8,

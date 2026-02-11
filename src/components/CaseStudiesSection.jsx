@@ -31,28 +31,22 @@ const CaseStudiesSection = () => {
   ];
 
   return (
-    <section className="bg-white" style={{ padding: '80px 0' }}>
+    <section className="bg-white py-12 md:py-20">
       <Container>
         {/* Section Header */}
-        <div style={{ marginBottom: '24px' }}>
+        <div className="mb-12 md:mb-16">
           <h2
-            className="text-pure-black font-semibold"
+            className="text-pure-black font-semibold text-2xl md:text-3xl mb-4 md:mb-6"
             style={{
               fontFamily: "'Inter Tight', sans-serif",
-              fontSize: 'clamp(1.5rem, 2vw, 2rem)',
-              marginBottom: '16px'
             }}
           >
             Case Studies
           </h2>
           <p
-            className="text-gray-700"
+            className="text-gray-700 text-2xl md:text-4xl lg:text-5xl font-medium leading-tight md:leading-snug max-w-4xl"
             style={{
               fontFamily: "'Inter Tight', sans-serif",
-              fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
-              fontWeight: '500',
-              lineHeight: '1.3',
-              maxWidth: '900px'
             }}
           >
             Our offerings are designed to drive meaningful outcomes, enhance customer experiences, and revolutionize industries with efficiency and speed.
@@ -60,27 +54,22 @@ const CaseStudiesSection = () => {
         </div>
 
         {/* Case Studies Grid */}
-        <div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-          style={{ gap: '24px', marginTop: '60px' }}
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mt-12 md:mt-16">
           {caseStudies.map((caseStudy) => (
             <CaseStudyCard key={caseStudy.id} caseStudy={caseStudy} />
           ))}
         </div>
 
         {/* View More Button */}
-        <div className="flex justify-start" style={{ marginTop: '60px' }}>
+        <div className="flex justify-start mt-12 md:mt-16">
           <button
-            className="bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-full flex items-center gap-2 transition-all duration-300 hover:shadow-lg"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-full flex items-center gap-2 transition-all duration-300 hover:shadow-lg px-8 py-4 md:px-10 md:py-5 text-lg"
             style={{
               fontFamily: "'Inter Tight', sans-serif",
-              fontSize: 'clamp(1rem, 1.5vw, 1.125rem)',
-              padding: '16px 32px'
             }}
           >
             View More
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </button>
@@ -95,9 +84,8 @@ const CaseStudyCard = ({ caseStudy }) => {
 
   return (
     <motion.div
-      className="group relative rounded-3xl overflow-hidden cursor-pointer"
+      className="group relative rounded-3xl overflow-hidden cursor-pointer h-125 md:h-150"
       style={{
-        height: '600px',
         backgroundColor: '#000000'
       }}
       onMouseEnter={() => setIsHovered(true)}

@@ -53,29 +53,24 @@ const BlogDetail = () => {
       </Helmet>
 
       {/* Modern Hero */}
-      <div style={{ position: 'relative', height: '70vh', minHeight: '600px', backgroundColor: '#000' }}>
+      <div className="relative h-[60vh] md:h-[70vh] min-h-100 md:min-h-150 bg-black">
         <img 
           src={blog.featuredImage || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643'} 
           alt={blog.title}
-          style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8 }}
+          className="w-full h-full object-cover opacity-80"
         />
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%)' }} />
+        <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent" />
         
-        <div style={{ position: 'absolute', bottom: '0', left: '0', width: '100%', padding: '80px 0' }}>
+        <div className="absolute bottom-0 left-0 w-full py-12 md:py-20">
           <Container>
-            <div style={{ maxWidth: '900px' }}>
-              <Link to="/blogs" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: '#FFF', textDecoration: 'none', marginBottom: '40px', fontSize: '12px', fontWeight: '800', letterSpacing: '0.2em', textTransform: 'uppercase' }} className="hover:opacity-70 transition-opacity">
+            <div className="max-w-4xl">
+              <Link to="/blogs" className="inline-flex items-center gap-2 text-white no-underline mb-8 md:mb-10 text-[10px] md:text-xs font-extrabold tracking-[0.2em] uppercase hover:opacity-70 transition-opacity">
                 <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
                 Back to Index
               </Link>
-              <h1 style={{ 
-                color: '#FFF', 
-                fontSize: 'clamp(2.5rem, 6vw, 5.5rem)', 
-                fontWeight: '800', 
-                lineHeight: '1', 
-                letterSpacing: '-0.04em', 
+              <h1 className="text-white font-extrabold leading-tight mb-8 tracking-tighter" style={{ 
+                fontSize: 'clamp(2rem, 6vw, 5.5rem)', 
                 fontFamily: "'Inter Tight', sans-serif",
-                marginBottom: '40px'
               }}>
                 {blog.title}
               </h1>
@@ -94,9 +89,9 @@ const BlogDetail = () => {
       </div>
 
       {/* Content */}
-      <div style={{ padding: '120px 0' }}>
+      <div className="py-16 md:py-24">
         <Container>
-          <div style={{ maxWidth: '720px', margin: '0 auto' }}>
+          <div className="max-w-3xl mx-auto">
             <div 
               className="blog-prose"
               style={{ 

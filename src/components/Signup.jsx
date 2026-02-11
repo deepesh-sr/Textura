@@ -38,18 +38,18 @@ const Signup = ({ onClose, onSwitchToLogin }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-100 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm" style={{ zIndex: 1000 }}>
-      <div className="bg-white rounded-2xl w-full max-w-md shadow-2xl relative overflow-hidden" style={{ padding: '48px', backgroundColor: '#FFFFFF', borderRadius: '24px' }}>
-        <button onClick={onClose} className="absolute top-6 right-6 text-gray-400 hover:text-black transition-colors" style={{ padding: '8px' }}>
+    <div className="fixed inset-0 z-1000 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+      <div className="bg-white rounded-3xl w-full max-w-md shadow-2xl relative overflow-hidden p-8 md:p-12">
+        <button onClick={onClose} className="absolute top-4 right-4 md:top-6 md:right-6 text-gray-400 hover:text-black transition-colors p-2">
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
         
-        <h2 className="text-3xl font-bold mb-8 text-center" style={{ fontFamily: "'Inter Tight', sans-serif", color: '#000000', marginBottom: '32px' }}>Create Account</h2>
+        <h2 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8 text-center" style={{ fontFamily: "'Inter Tight', sans-serif" }}>Create Account</h2>
         
-        {error && <div className="mb-6 p-4 bg-red-50 text-red-500 rounded-xl text-sm border border-red-100" style={{ marginBottom: '24px' }}>{error}</div>}
-        {success && <div className="mb-6 p-4 bg-green-50 text-green-500 rounded-xl text-sm border border-green-100" style={{ marginBottom: '24px' }}>Account created! Redirecting to login...</div>}
+        {error && <div className="mb-6 p-4 bg-red-50 text-red-500 rounded-xl text-sm border border-red-100">{error}</div>}
+        {success && <div className="mb-6 p-4 bg-green-50 text-green-500 rounded-xl text-sm border border-green-100">Account created! Redirecting to login...</div>}
 
-        <form onSubmit={handleSubmit} className="space-y-6" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-5 md:gap-6">
           <div>
             <label className="block text-sm font-medium mb-2" style={{ color: '#4D4D4D' }}>Full Name</label>
             <input
@@ -89,8 +89,7 @@ const Signup = ({ onClose, onSwitchToLogin }) => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-4 bg-pure-black text-white rounded-xl font-semibold hover:bg-gray-900 transition-all active:scale-95 disabled:bg-gray-400"
-            style={{ padding: '16px', backgroundColor: '#000000', color: '#FFFFFF', borderRadius: '12px', marginTop: '12px', fontSize: '16px' }}
+            className="w-full py-4 bg-black text-white rounded-xl font-semibold hover:bg-gray-900 transition-all active:scale-95 disabled:bg-gray-400 mt-4 text-base"
           >
             {loading ? 'Creating...' : 'Sign Up'}
           </button>
