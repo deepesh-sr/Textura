@@ -102,7 +102,9 @@ const BlogDetail = () => {
                 fontSize: '21px', 
                 lineHeight: '1.7', 
                 color: '#1F2937',
-                fontFamily: "'Inter Tight', sans-serif"
+                fontFamily: "'Inter Tight', sans-serif",
+                overflowWrap: 'break-word',
+                wordBreak: 'break-word'
               }}
               dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(blog.content) }}
             />
@@ -111,6 +113,7 @@ const BlogDetail = () => {
       </div>
 
       <style>{`
+        .blog-prose { width: 100%; }
         .blog-prose p { margin-bottom: 2rem; }
         .blog-prose h2 { font-size: 36px; font-weight: 800; margin: 3rem 0 1.5rem; letter-spacing: -0.02em; color: #000; }
         .blog-prose h3 { font-size: 28px; font-weight: 800; margin: 2.5rem 0 1.25rem; color: #000; }
@@ -124,7 +127,15 @@ const BlogDetail = () => {
           margin: 4rem 0;
           color: #111;
         }
-        .blog-prose img { width: 100%; border-radius: 24px; margin: 3rem 0; }
+        .blog-prose img { max-width: 100%; height: auto; border-radius: 24px; margin: 3rem 0; }
+        .blog-prose iframe { max-width: 100%; border-radius: 12px; }
+        .blog-prose pre { 
+          background: #f4f4f4; 
+          padding: 20px; 
+          border-radius: 8px; 
+          overflow-x: auto; 
+          margin-bottom: 2rem;
+        }
         .blog-prose ul { margin-bottom: 2rem; padding-left: 1.5rem; }
         .blog-prose li { margin-bottom: 0.75rem; }
       `}</style>
