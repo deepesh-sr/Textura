@@ -42,10 +42,10 @@ const StatsSection = () => {
   ];
 
   return (
-    <section className="bg-pure-white" style={{ padding: '80px 0' }}>
+    <section className="bg-pure-white py-12 md:py-20">
       <Container>
         {/* Animated Text Section */}
-        <div style={{ marginBottom: '80px' }}>
+        <div className="mb-12 md:mb-20">
           <motion.p
           ref={textRef}
           className="text-pure-black leading-relaxed"
@@ -80,20 +80,19 @@ const StatsSection = () => {
       {/* Stats Box */}
       <motion.div
         ref={statsRef}
-        className="bg-pure-black rounded-2xl"
-        style={{ padding: '60px 40px' }}
+        className="bg-pure-black rounded-2xl px-6 py-12 md:px-10 md:py-16"
         initial={{ opacity: 0, y: 50 }}
         animate={isStatsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
         transition={{ duration: 0.6 }}
       >
         {/* Tagline */}
         <h3
-          className="text-white text-center"
+          className="text-white text-center px-4"
           style={{
             fontFamily: "'Inter Tight', sans-serif",
-            fontSize: 'clamp(1.25rem, 2vw, 1.5rem)',
+            fontSize: 'clamp(1.125rem, 2vw, 1.5rem)',
             fontWeight: '600',
-            marginBottom: '60px'
+            marginBottom: '40px md:60px'
           }}
         >
           Global Scale. Local Expertise. Proven Results.
@@ -101,8 +100,7 @@ const StatsSection = () => {
 
         {/* Stats Grid */}
         <div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
-          style={{ gap: '60px' }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-16"
         >
           {stats.map((stat, index) => (
             <StatCard

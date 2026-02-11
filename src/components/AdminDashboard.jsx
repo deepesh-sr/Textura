@@ -226,291 +226,314 @@ const AdminDashboard = ({ onClose }) => {
   if (loading) return <div style={{ padding: '80px', textAlign: 'center', fontSize: '18px', color: '#666666' }}>Loading Admin Panel...</div>;
 
   return (
-    <section id="cms" className="bg-gray-50 border-t border-gray-200" style={{ padding: '96px 0', backgroundColor: '#F9FAFB', minHeight: '80vh' }}>
-      <Container>
-        <div style={{ marginBottom: '48px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-          <div>
-            <h2 className="text-3xl font-bold mb-4 text-pure-black" style={{ fontFamily: "'Inter Tight', sans-serif", fontSize: '32px', marginBottom: '16px', color: '#000000' }}>
-              Textura CMS
-            </h2>
-            <p className="text-gray-600" style={{ fontSize: '16px', color: '#4D4D4D' }}>Manage your website content and publishing from here.</p>
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      {/* Header */}
+      <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div className="max-w-400 mx-auto px-4 md:px-8 h-16 md:h-20 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <h1 className="text-xl md:text-2xl font-bold text-gray-900" style={{ fontFamily: "'Inter Tight', sans-serif" }}>
+              CMS Dashboard
+            </h1>
           </div>
           
-          <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-            <div style={{ display: 'flex', gap: '4px', backgroundColor: '#E5E7EB', padding: '4px', borderRadius: '12px' }}>
-              <button 
-                onClick={() => { setActiveTab('sliders'); setEditMode(false); }}
-                style={{ padding: '8px 20px', borderRadius: '10px', fontSize: '14px', fontWeight: '600', border: 'none', cursor: 'pointer', backgroundColor: activeTab === 'sliders' ? '#FFFFFF' : 'transparent', color: activeTab === 'sliders' ? '#000000' : '#4D4D4D', boxShadow: activeTab === 'sliders' ? '0 2px 4px rgba(0,0,0,0.1)' : 'none' }}>
-                Sliders
-              </button>
-              <button 
-                onClick={() => { setActiveTab('blogs'); setEditMode(false); }}
-                style={{ padding: '8px 20px', borderRadius: '10px', fontSize: '14px', fontWeight: '600', border: 'none', cursor: 'pointer', backgroundColor: activeTab === 'blogs' ? '#FFFFFF' : 'transparent', color: activeTab === 'blogs' ? '#000000' : '#4D4D4D', boxShadow: activeTab === 'blogs' ? '0 2px 4px rgba(0,0,0,0.1)' : 'none' }}>
-                Blog Posts
-              </button>
-            </div>
-            
+          <div className="flex items-center gap-4">
             <button 
               onClick={onClose}
-              style={{ padding: '12px 24px', backgroundColor: '#000000', color: '#FFFFFF', borderRadius: '12px', fontWeight: 'bold', cursor: 'pointer', border: 'none' }}
+              className="px-4 py-2 md:px-6 md:py-3 rounded-xl font-semibold text-sm transition-all flex items-center gap-2"
+              style={{ backgroundColor: '#000000', color: '#FFFFFF' }}
             >
               Back to Site
             </button>
           </div>
         </div>
+      </header>
 
-        {activeTab === 'sliders' ? (
-          <>
-            {/* Slider Form */}
-            <div className="bg-white shadow-sm border border-gray-100" style={{ padding: '48px', backgroundColor: '#FFFFFF', borderRadius: '24px', marginBottom: '64px', border: '1px solid #E5E7EB' }}>
-              <h3 className="text-xl font-semibold text-pure-black" style={{ fontSize: '24px', marginBottom: '40px', color: '#000000' }}>{editMode ? 'Edit Slider Entry' : 'Create New Slider Entry'}</h3>
-              {error && <div style={{ marginBottom: '24px', padding: '16px', backgroundColor: '#FEF2F2', color: '#DC2626', borderRadius: '12px', fontSize: '14px', border: '1px solid #FEE2E2' }}>{error}</div>}
-              
-              <form onSubmit={handleSliderSubmit} className="grid grid-cols-1 md:grid-cols-2" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '32px' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                  <div>
-                    <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px', fontSize: '14px' }}>Slider Title *</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g., Manage Content Effortlessly"
-                      className="w-full focus:ring-2 focus:ring-black outline-none"
-                      style={{ padding: '16px', border: '1px solid #CCCCCC', borderRadius: '12px', fontSize: '15px', transition: 'all 0.2s' }}
-                      value={currentSlider.title}
-                      onChange={(e) => setCurrentSlider({ ...currentSlider, title: e.target.value })}
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px', fontSize: '14px' }}>Badge Text *</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g., CMS Dashboard"
-                      className="w-full focus:ring-2 focus:ring-black outline-none"
-                      style={{ padding: '16px', border: '1px solid #CCCCCC', borderRadius: '12px', fontSize: '15px' }}
-                      value={currentSlider.badge}
-                      onChange={(e) => setCurrentSlider({ ...currentSlider, badge: e.target.value })}
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px', fontSize: '14px' }}>Label (Tag) *</label>
-                    <input
-                      type="text"
-                      required
-                      style={{ padding: '16px', border: '1px solid #CCCCCC', borderRadius: '12px', fontSize: '15px' }}
-                      value={currentSlider.label}
-                      onChange={(e) => setCurrentSlider({ ...currentSlider, label: e.target.value })}
-                    />
-                  </div>
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                  <div>
-                    <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px', fontSize: '14px' }}>Image URL *</label>
-                    <input
-                      type="url"
-                      required
-                      style={{ padding: '16px', border: '1px solid #CCCCCC', borderRadius: '12px', fontSize: '15px' }}
-                      value={currentSlider.imageUrl}
-                      onChange={(e) => setCurrentSlider({ ...currentSlider, imageUrl: e.target.value })}
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px', fontSize: '14px' }}>Button Text *</label>
-                    <input
-                      type="text"
-                      required
-                      style={{ padding: '16px', border: '1px solid #CCCCCC', borderRadius: '12px', fontSize: '15px' }}
-                      value={currentSlider.buttonText}
-                      onChange={(e) => setCurrentSlider({ ...currentSlider, buttonText: e.target.value })}
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px', fontSize: '14px' }}>Description *</label>
-                    <textarea
-                      required
-                      rows="3"
-                      style={{ padding: '16px', border: '1px solid #CCCCCC', borderRadius: '12px', fontSize: '15px', resize: 'none' }}
-                      value={currentSlider.description}
-                      onChange={(e) => setCurrentSlider({ ...currentSlider, description: e.target.value })}
-                    />
-                  </div>
-                </div>
-                <div className="md:col-span-2 flex gap-4" style={{ marginTop: '16px', display: 'flex', gap: '16px' }}>
-                  <button
-                    type="submit"
-                    style={{ padding: '16px 40px', backgroundColor: '#000000', color: '#FFFFFF', borderRadius: '12px', border: 'none', cursor: 'pointer', fontSize: '16px' }}
-                  >
-                    {editMode ? 'Save Changes' : 'Publish Slider'}
-                  </button>
-                  {editMode && (
-                    <button
-                      type="button"
-                      onClick={resetSliderForm}
-                      style={{ padding: '16px 40px', backgroundColor: '#E5E7EB', color: '#374151', borderRadius: '12px', border: 'none', cursor: 'pointer', fontSize: '16px' }}
-                    >
-                      Cancel
-                    </button>
-                  )}
-                </div>
-              </form>
+      <div className="flex-1 flex flex-col md:flex-row">
+        {/* Sidebar - Horizontal on mobile, Vertical on desktop */}
+        <aside className="w-full md:w-64 bg-white border-b md:border-b-0 md:border-r border-gray-200 p-4 md:p-6 sticky top-16 md:top-20 z-40">
+          <nav className="flex md:flex-col gap-2 overflow-x-auto md:overflow-x-visible pb-2 md:pb-0">
+            {['sliders', 'blogs'].map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`px-4 py-2 md:px-6 md:py-3 rounded-xl font-semibold text-sm transition-all whitespace-nowrap flex-1 md:flex-initial text-center md:text-left ${
+                  activeTab === tab 
+                    ? 'bg-black text-white' 
+                    : 'text-gray-500 hover:bg-gray-100'
+                }`}
+              >
+                {tab.charAt(0).toUpperCase() + tab.slice(1)}
+              </button>
+            ))}
+          </nav>
+        </aside>
+
+        {/* Content Area */}
+        <main className="flex-1 p-4 md:p-8 overflow-x-hidden">
+          <Container>
+            <div style={{ marginBottom: '48px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+              <div>
+                <h2 className="text-3xl font-bold mb-4 text-pure-black" style={{ fontFamily: "'Inter Tight', sans-serif", fontSize: '32px', marginBottom: '16px', color: '#000000' }}>
+                  Textura CMS
+                </h2>
+                <p className="text-gray-600" style={{ fontSize: '16px', color: '#4D4D4D' }}>Manage your website content and publishing from here.</p>
+              </div>
             </div>
 
-            {/* Slider List */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))', gap: '32px' }}>
-              {sliders.map((s) => (
-                <div key={s._id} style={{ backgroundColor: '#FFFFFF', borderRadius: '20px', overflow: 'hidden', border: '1px solid #E5E7EB' }}>
-                  <img src={s.imageUrl} style={{ width: '100%', height: '180px', objectFit: 'cover' }} />
-                  <div style={{ padding: '24px' }}>
-                    <h4 style={{ fontWeight: '700', fontSize: '18px', marginBottom: '8px' }}>{s.title}</h4>
-                    <div style={{ display: 'flex', gap: '8px', marginTop: '16px' }}>
-                      <button onClick={() => { setCurrentSlider(s); setEditMode(true); window.scrollTo({ top: 0, behavior: 'smooth' }); }} style={{ flex: 1, padding: '10px', borderRadius: '8px', border: '1px solid #E5E7EB', cursor: 'pointer' }}>Edit</button>
-                      <button onClick={() => handleDeleteSlider(s._id)} style={{ padding: '10px 15px', borderRadius: '8px', border: 'none', backgroundColor: '#FEF2F2', color: '#DC2626', cursor: 'pointer' }}>Delete</button>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </>
-        ) : (
-          <>
-            {/* Blog Form */}
-            <div className="bg-white shadow-sm border border-gray-100" style={{ padding: '48px', backgroundColor: '#FFFFFF', borderRadius: '24px', marginBottom: '64px', border: '1px solid #E5E7EB' }}>
-              <h3 className="text-xl font-semibold text-pure-black" style={{ fontSize: '24px', marginBottom: '40px', color: '#000000' }}>
-                {editMode ? 'Edit Blog Post' : 'Write New Blog Post'}
-              </h3>
-              {error && <div style={{ marginBottom: '24px', padding: '16px', backgroundColor: '#FEF2F2', color: '#DC2626', borderRadius: '12px', fontSize: '14px', border: '1px solid #FEE2E2' }}>{error}</div>}
-              
-              <form onSubmit={handleBlogSubmit} className="space-y-8" style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
-                  <div>
-                    <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px' }}>Blog Title *</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="The future of CMS..."
-                      style={{ width: '100%', padding: '16px', border: '1px solid #CCCCCC', borderRadius: '12px' }}
-                      value={currentBlog.title}
-                      onChange={(e) => {
-                        const title = e.target.value;
-                        const slug = title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
-                        setCurrentBlog({ ...currentBlog, title, slug });
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px' }}>SEO Score (Textura Insights)</label>
-                    <div style={{ width: '100%', height: '54px', backgroundColor: '#F3F4F6', borderRadius: '12px', display: 'flex', alignItems: 'center', padding: '0 20px', border: '1px solid #E5E7EB' }}>
-                      <div style={{ flex: 1, height: '8px', backgroundColor: '#E5E7EB', borderRadius: '4px', overflow: 'hidden', marginRight: '12px' }}>
-                        <div style={{ width: `${seoScore}%`, height: '100%', backgroundColor: seoScore > 70 ? '#10B981' : seoScore > 40 ? '#F59E0B' : '#EF4444', transition: 'width 0.5s ease' }}></div>
+            {activeTab === 'sliders' ? (
+              <>
+                {/* Slider Form */}
+                <div className="bg-white shadow-sm border border-gray-100" style={{ padding: '48px', backgroundColor: '#FFFFFF', borderRadius: '24px', marginBottom: '64px', border: '1px solid #E5E7EB' }}>
+                  <h3 className="text-xl font-semibold text-pure-black" style={{ fontSize: '24px', marginBottom: '40px', color: '#000000' }}>{editMode ? 'Edit Slider Entry' : 'Create New Slider Entry'}</h3>
+                  {error && <div style={{ marginBottom: '24px', padding: '16px', backgroundColor: '#FEF2F2', color: '#DC2626', borderRadius: '12px', fontSize: '14px', border: '1px solid #FEE2E2' }}>{error}</div>}
+                  
+                  <form onSubmit={handleSliderSubmit} className="grid grid-cols-1 md:grid-cols-2" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '32px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                      <div>
+                        <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px', fontSize: '14px' }}>Slider Title *</label>
+                        <input
+                          type="text"
+                          required
+                          placeholder="e.g., Manage Content Effortlessly"
+                          className="w-full focus:ring-2 focus:ring-black outline-none"
+                          style={{ padding: '16px', border: '1px solid #CCCCCC', borderRadius: '12px', fontSize: '15px', transition: 'all 0.2s' }}
+                          value={currentSlider.title}
+                          onChange={(e) => setCurrentSlider({ ...currentSlider, title: e.target.value })}
+                        />
                       </div>
-                      <span style={{ fontWeight: 'bold', minWidth: '40px', color: seoScore > 70 ? '#059669' : '#4D4D4D' }}>{seoScore}</span>
+                      <div>
+                        <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px', fontSize: '14px' }}>Badge Text *</label>
+                        <input
+                          type="text"
+                          required
+                          placeholder="e.g., CMS Dashboard"
+                          className="w-full focus:ring-2 focus:ring-black outline-none"
+                          style={{ padding: '16px', border: '1px solid #CCCCCC', borderRadius: '12px', fontSize: '15px' }}
+                          value={currentSlider.badge}
+                          onChange={(e) => setCurrentSlider({ ...currentSlider, badge: e.target.value })}
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px', fontSize: '14px' }}>Label (Tag) *</label>
+                        <input
+                          type="text"
+                          required
+                          style={{ padding: '16px', border: '1px solid #CCCCCC', borderRadius: '12px', fontSize: '15px' }}
+                          value={currentSlider.label}
+                          onChange={(e) => setCurrentSlider({ ...currentSlider, label: e.target.value })}
+                        />
+                      </div>
                     </div>
-                  </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                      <div>
+                        <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px', fontSize: '14px' }}>Image URL *</label>
+                        <input
+                          type="url"
+                          required
+                          style={{ padding: '16px', border: '1px solid #CCCCCC', borderRadius: '12px', fontSize: '15px' }}
+                          value={currentSlider.imageUrl}
+                          onChange={(e) => setCurrentSlider({ ...currentSlider, imageUrl: e.target.value })}
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px', fontSize: '14px' }}>Button Text *</label>
+                        <input
+                          type="text"
+                          required
+                          style={{ padding: '16px', border: '1px solid #CCCCCC', borderRadius: '12px', fontSize: '15px' }}
+                          value={currentSlider.buttonText}
+                          onChange={(e) => setCurrentSlider({ ...currentSlider, buttonText: e.target.value })}
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px', fontSize: '14px' }}>Description *</label>
+                        <textarea
+                          required
+                          rows="3"
+                          style={{ padding: '16px', border: '1px solid #CCCCCC', borderRadius: '12px', fontSize: '15px', resize: 'none' }}
+                          value={currentSlider.description}
+                          onChange={(e) => setCurrentSlider({ ...currentSlider, description: e.target.value })}
+                        />
+                      </div>
+                    </div>
+                    <div className="md:col-span-2 flex gap-4" style={{ marginTop: '16px', display: 'flex', gap: '16px' }}>
+                      <button
+                        type="submit"
+                        style={{ padding: '16px 40px', backgroundColor: '#000000', color: '#FFFFFF', borderRadius: '12px', border: 'none', cursor: 'pointer', fontSize: '16px' }}
+                      >
+                        {editMode ? 'Save Changes' : 'Publish Slider'}
+                      </button>
+                      {editMode && (
+                        <button
+                          type="button"
+                          onClick={resetSliderForm}
+                          style={{ padding: '16px 40px', backgroundColor: '#E5E7EB', color: '#374151', borderRadius: '12px', border: 'none', cursor: 'pointer', fontSize: '16px' }}
+                        >
+                          Cancel
+                        </button>
+                      )}
+                    </div>
+                  </form>
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px' }}>Content</label>
-                  <div className="rich-text-editor" style={{ borderRadius: '12px', overflow: 'hidden' }}>
-                    <ReactQuill 
-                      theme="snow" 
-                      value={currentBlog.content} 
-                      onChange={(content) => setCurrentBlog({ ...currentBlog, content })}
-                      style={{ height: '300px', marginBottom: '40px' }}
-                    />
-                  </div>
+                {/* Slider List */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))', gap: '32px' }}>
+                  {sliders.map((s) => (
+                    <div key={s._id} style={{ backgroundColor: '#FFFFFF', borderRadius: '20px', overflow: 'hidden', border: '1px solid #E5E7EB' }}>
+                      <img src={s.imageUrl} style={{ width: '100%', height: '180px', objectFit: 'cover' }} />
+                      <div style={{ padding: '24px' }}>
+                        <h4 style={{ fontWeight: '700', fontSize: '18px', marginBottom: '8px' }}>{s.title}</h4>
+                        <div style={{ display: 'flex', gap: '8px', marginTop: '16px' }}>
+                          <button onClick={() => { setCurrentSlider(s); setEditMode(true); window.scrollTo({ top: 0, behavior: 'smooth' }); }} style={{ flex: 1, padding: '10px', borderRadius: '8px', border: '1px solid #E5E7EB', cursor: 'pointer' }}>Edit</button>
+                          <button onClick={() => handleDeleteSlider(s._id)} style={{ padding: '10px 15px', borderRadius: '8px', border: 'none', backgroundColor: '#FEF2F2', color: '#DC2626', cursor: 'pointer' }}>Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
+              </>
+            ) : (
+              <>
+                {/* Blog Form */}
+                <div className="bg-white shadow-sm border border-gray-100" style={{ padding: '48px', backgroundColor: '#FFFFFF', borderRadius: '24px', marginBottom: '64px', border: '1px solid #E5E7EB' }}>
+                  <h3 className="text-xl font-semibold text-pure-black" style={{ fontSize: '24px', marginBottom: '40px', color: '#000000' }}>
+                    {editMode ? 'Edit Blog Post' : 'Write New Blog Post'}
+                  </h3>
+                  {error && <div style={{ marginBottom: '24px', padding: '16px', backgroundColor: '#FEF2F2', color: '#DC2626', borderRadius: '12px', fontSize: '14px', border: '1px solid #FEE2E2' }}>{error}</div>}
+                  
+                  <form onSubmit={handleBlogSubmit} className="space-y-8" style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+                      <div>
+                        <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px' }}>Blog Title *</label>
+                        <input
+                          type="text"
+                          required
+                          placeholder="The future of CMS..."
+                          style={{ width: '100%', padding: '16px', border: '1px solid #CCCCCC', borderRadius: '12px' }}
+                          value={currentBlog.title}
+                          onChange={(e) => {
+                            const title = e.target.value;
+                            const slug = title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+                            setCurrentBlog({ ...currentBlog, title, slug });
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px' }}>SEO Score (Textura Insights)</label>
+                        <div style={{ width: '100%', height: '54px', backgroundColor: '#F3F4F6', borderRadius: '12px', display: 'flex', alignItems: 'center', padding: '0 20px', border: '1px solid #E5E7EB' }}>
+                          <div style={{ flex: 1, height: '8px', backgroundColor: '#E5E7EB', borderRadius: '4px', overflow: 'hidden', marginRight: '12px' }}>
+                            <div style={{ width: `${seoScore}%`, height: '100%', backgroundColor: seoScore > 70 ? '#10B981' : seoScore > 40 ? '#F59E0B' : '#EF4444', transition: 'width 0.5s ease' }}></div>
+                          </div>
+                          <span style={{ fontWeight: 'bold', minWidth: '40px', color: seoScore > 70 ? '#059669' : '#4D4D4D' }}>{seoScore}</span>
+                        </div>
+                      </div>
+                    </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '24px' }}>
-                  <div>
-                    <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px' }}>Featured Image URL</label>
-                    <input
-                      type="url"
-                      style={{ width: '100%', padding: '16px', border: '1px solid #CCCCCC', borderRadius: '12px' }}
-                      value={currentBlog.featuredImage}
-                      onChange={(e) => setCurrentBlog({ ...currentBlog, featuredImage: e.target.value })}
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px' }}>SEO Meta Title</label>
-                    <input
-                      type="text"
-                      style={{ width: '100%', padding: '16px', border: '1px solid #CCCCCC', borderRadius: '12px' }}
-                      value={currentBlog.metaTitle}
-                      onChange={(e) => setCurrentBlog({ ...currentBlog, metaTitle: e.target.value })}
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px' }}>Status</label>
-                    <select
-                      style={{ width: '100%', padding: '16px', border: '1px solid #CCCCCC', borderRadius: '12px', backgroundColor: '#FFF' }}
-                      value={currentBlog.status}
-                      onChange={(e) => setCurrentBlog({ ...currentBlog, status: e.target.value })}
-                    >
-                      <option value="draft">Draft</option>
-                      <option value="published">Published</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-                  <button
-                    type="submit"
-                    style={{ padding: '16px 40px', backgroundColor: '#000000', color: '#FFFFFF', borderRadius: '12px', border: 'none', cursor: 'pointer', fontSize: '16px', fontWeight: 'bold' }}
-                  >
-                    {editMode ? 'Update Blog' : 'Publish Blog'}
-                  </button>
-                  <button type="button" onClick={() => setShowPreview(!showPreview)} style={{ padding: '16px 40px', backgroundColor: '#FFFFFF', color: '#000000', borderRadius: '12px', border: '1px solid #E5E7EB', cursor: 'pointer' }}>
-                    {showPreview ? 'Hide Preview' : 'Live Preview'}
-                  </button>
-                  {editMode && (
-                    <button
-                      type="button"
-                      onClick={resetBlogForm}
-                      style={{ padding: '16px 40px', backgroundColor: '#E5E7EB', color: '#374151', borderRadius: '12px', border: 'none', cursor: 'pointer' }}
-                    >
-                      Cancel
-                    </button>
-                  )}
-                </div>
-
-                {showPreview && (
-                  <div className="preview-container animate-fade-in" style={{ padding: '48px', backgroundColor: '#F9FAFB', borderRadius: '24px', border: '1px solid #E5E7EB', marginTop: '32px' }}>
-                    <p style={{ fontSize: '12px', color: '#6B7280', textTransform: 'uppercase', marginBottom: '16px', fontWeight: 'bold' }}>Live Preview Preview</p>
-                    <h1 style={{ fontSize: '40px', fontWeight: '800', marginBottom: '24px' }}>{currentBlog.title || 'Post Title'}</h1>
-                    {currentBlog.featuredImage && <img src={currentBlog.featuredImage} style={{ width: '100%', height: '400px', objectFit: 'cover', borderRadius: '16px', marginBottom: '32px' }} />}
-                    <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: currentBlog.content }} style={{ fontSize: '18px', lineHeight: '1.8' }} />
-                  </div>
-                )}
-              </form>
-            </div>
-
-            {/* Blog List */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              {blogs.map((b) => (
-                <div key={b._id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#FFFFFF', padding: '24px', borderRadius: '16px', border: '1px solid #E5E7EB' }}>
-                  <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
-                    <img src={b.featuredImage || 'https://placehold.co/600x400'} style={{ width: '80px', height: '60px', borderRadius: '8px', objectFit: 'cover' }} />
                     <div>
-                      <h4 style={{ fontWeight: '700', fontSize: '18px' }}>{b.title}</h4>
-                      <p style={{ fontSize: '12px', color: '#6B7280' }}>/{b.slug} • <span style={{ color: b.status === 'published' ? '#059669' : '#D97706' }}>{b.status.toUpperCase()}</span></p>
+                      <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px' }}>Content</label>
+                      <div className="rich-text-editor" style={{ borderRadius: '12px', overflow: 'hidden' }}>
+                        <ReactQuill 
+                          theme="snow" 
+                          value={currentBlog.content} 
+                          onChange={(content) => setCurrentBlog({ ...currentBlog, content })}
+                          style={{ height: '300px', marginBottom: '40px' }}
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div style={{ display: 'flex', gap: '12px' }}>
-                    <button 
-                      onClick={() => { setCurrentBlog(b); setEditMode(true); window.scrollTo({ top: 0, behavior: 'smooth' }); }} 
-                      style={{ padding: '8px 20px', borderRadius: '8px', border: '1px solid #E5E7EB', cursor: 'pointer', backgroundColor: '#FFF' }}
-                    >
-                      Edit
-                    </button>
-                    <button onClick={() => handleDeleteBlog(b._id)} style={{ padding: '8px 20px', borderRadius: '8px', border: 'none', backgroundColor: '#FEF2F2', color: '#DC2626', cursor: 'pointer' }}>Delete</button>
-                  </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '24px' }}>
+                      <div>
+                        <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px' }}>Featured Image URL</label>
+                        <input
+                          type="url"
+                          style={{ width: '100%', padding: '16px', border: '1px solid #CCCCCC', borderRadius: '12px' }}
+                          value={currentBlog.featuredImage}
+                          onChange={(e) => setCurrentBlog({ ...currentBlog, featuredImage: e.target.value })}
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px' }}>SEO Meta Title</label>
+                        <input
+                          type="text"
+                          style={{ width: '100%', padding: '16px', border: '1px solid #CCCCCC', borderRadius: '12px' }}
+                          value={currentBlog.metaTitle}
+                          onChange={(e) => setCurrentBlog({ ...currentBlog, metaTitle: e.target.value })}
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px' }}>Status</label>
+                        <select
+                          style={{ width: '100%', padding: '16px', border: '1px solid #CCCCCC', borderRadius: '12px', backgroundColor: '#FFF' }}
+                          value={currentBlog.status}
+                          onChange={(e) => setCurrentBlog({ ...currentBlog, status: e.target.value })}
+                        >
+                          <option value="draft">Draft</option>
+                          <option value="published">Published</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+                      <button
+                        type="submit"
+                        style={{ padding: '16px 40px', backgroundColor: '#000000', color: '#FFFFFF', borderRadius: '12px', border: 'none', cursor: 'pointer', fontSize: '16px', fontWeight: 'bold' }}
+                      >
+                        {editMode ? 'Update Blog' : 'Publish Blog'}
+                      </button>
+                      <button type="button" onClick={() => setShowPreview(!showPreview)} style={{ padding: '16px 40px', backgroundColor: '#FFFFFF', color: '#000000', borderRadius: '12px', border: '1px solid #E5E7EB', cursor: 'pointer' }}>
+                        {showPreview ? 'Hide Preview' : 'Live Preview'}
+                      </button>
+                      {editMode && (
+                        <button
+                          type="button"
+                          onClick={resetBlogForm}
+                          style={{ padding: '16px 40px', backgroundColor: '#E5E7EB', color: '#374151', borderRadius: '12px', border: 'none', cursor: 'pointer' }}
+                        >
+                          Cancel
+                        </button>
+                      )}
+                    </div>
+
+                    {showPreview && (
+                      <div className="preview-container animate-fade-in" style={{ padding: '48px', backgroundColor: '#F9FAFB', borderRadius: '24px', border: '1px solid #E5E7EB', marginTop: '32px' }}>
+                        <p style={{ fontSize: '12px', color: '#6B7280', textTransform: 'uppercase', marginBottom: '16px', fontWeight: 'bold' }}>Live Preview Preview</p>
+                        <h1 style={{ fontSize: '40px', fontWeight: '800', marginBottom: '24px' }}>{currentBlog.title || 'Post Title'}</h1>
+                        {currentBlog.featuredImage && <img src={currentBlog.featuredImage} style={{ width: '100%', height: '400px', objectFit: 'cover', borderRadius: '16px', marginBottom: '32px' }} />}
+                        <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: currentBlog.content }} style={{ fontSize: '18px', lineHeight: '1.8' }} />
+                      </div>
+                    )}
+                  </form>
                 </div>
-              ))}
-            </div>
-          </>
-        )}
-      </Container>
-    </section>
+
+                {/* Blog List */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  {blogs.map((b) => (
+                    <div key={b._id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#FFFFFF', padding: '24px', borderRadius: '16px', border: '1px solid #E5E7EB' }}>
+                      <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
+                        <img src={b.featuredImage || 'https://placehold.co/600x400'} style={{ width: '80px', height: '60px', borderRadius: '8px', objectFit: 'cover' }} />
+                        <div>
+                          <h4 style={{ fontWeight: '700', fontSize: '18px' }}>{b.title}</h4>
+                          <p style={{ fontSize: '12px', color: '#6B7280' }}>/{b.slug} • <span style={{ color: b.status === 'published' ? '#059669' : '#D97706' }}>{b.status.toUpperCase()}</span></p>
+                        </div>
+                      </div>
+                      <div style={{ display: 'flex', gap: '12px' }}>
+                        <button 
+                          onClick={() => { setCurrentBlog(b); setEditMode(true); window.scrollTo({ top: 0, behavior: 'smooth' }); }} 
+                          style={{ padding: '8px 20px', borderRadius: '8px', border: '1px solid #E5E7EB', cursor: 'pointer', backgroundColor: '#FFF' }}
+                        >
+                          Edit
+                        </button>
+                        <button onClick={() => handleDeleteBlog(b._id)} style={{ padding: '8px 20px', borderRadius: '8px', border: 'none', backgroundColor: '#FEF2F2', color: '#DC2626', cursor: 'pointer' }}>Delete</button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+          </Container>
+        </main>
+      </div>
+    </div>
   );
 };
 

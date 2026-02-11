@@ -37,29 +37,23 @@ const ServicesSection = () => {
   ];
 
   return (
-    <section className="bg-gray-100" style={{ padding: '80px 0' }}>
+    <section className="bg-gray-100 py-12 md:py-20">
       <Container>
         {/* Section Header */}
-        <div className="flex justify-between items-start" style={{ marginBottom: '24px' }}>
-          <div>
+        <div className="flex flex-col md:flex-row justify-between items-start gap-6 mb-12 md:mb-16">
+          <div className="max-w-4xl">
             <h2
-              className="text-pure-black font-semibold"
+              className="text-pure-black font-semibold text-2xl md:text-3xl mb-4 md:mb-6"
               style={{
                 fontFamily: "'Inter Tight', sans-serif",
-                fontSize: 'clamp(1.5rem, 2vw, 2rem)',
-                marginBottom: '16px'
               }}
             >
               Services
             </h2>
             <p
-              className="text-gray-700"
+              className="text-gray-700 text-2xl md:text-4xl lg:text-5xl font-medium leading-tight md:leading-snug"
               style={{
                 fontFamily: "'Inter Tight', sans-serif",
-                fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
-                fontWeight: '500',
-                lineHeight: '1.3',
-                maxWidth: '900px'
               }}
             >
               Our offerings are designed to drive meaningful outcomes, enhance customer experiences, and revolutionize industries with efficiency and speed.
@@ -67,44 +61,35 @@ const ServicesSection = () => {
           </div>
           <a
             href="/services"
-            className="text-pure-black hover:text-blue-600 font-medium flex items-center gap-2"
+            className="text-pure-black hover:text-blue-600 font-medium flex items-center gap-2 text-lg md:text-xl transition-colors shrink-0 md:mt-4"
             style={{
               fontFamily: "'Inter Tight', sans-serif",
-              fontSize: 'clamp(1rem, 1.5vw, 1.125rem)',
-              transition: 'color 0.3s ease',
-              whiteSpace: 'nowrap',
-              marginTop: '8px'
             }}
           >
             View all
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </a>
         </div>
 
         {/* Services Grid */}
-        <div
-          className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5"
-          style={{ gap: '20px', marginTop: '60px' }}
-        >
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 mt-12 md:mt-16">
           {services.map((service, index) => (
             <ServiceCard key={service.id} service={service} />
           ))}
         </div>
 
         {/* View More Button */}
-        <div className="flex justify-center" style={{ marginTop: '60px' }}>
+        <div className="flex justify-center mt-12 md:mt-16">
           <button
-            className="bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-full flex items-center gap-2 transition-all duration-300 hover:shadow-lg"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-full flex items-center gap-2 transition-all duration-300 hover:shadow-lg px-8 py-4 md:px-10 md:py-5 text-lg"
             style={{
               fontFamily: "'Inter Tight', sans-serif",
-              fontSize: 'clamp(1rem, 1.5vw, 1.125rem)',
-              padding: '16px 32px'
             }}
           >
-            View More
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            Explore More Services
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </button>

@@ -5,10 +5,10 @@ const Container = ({ children, fullWidth = false, className = '' }) => {
 
   return (
     <div 
-      className={`mx-auto ${className}`}
+      className={`mx-auto w-full ${className}`}
       style={{ 
-        paddingLeft: 'clamp(16px, 5vw, 80px)',
-        paddingRight: 'clamp(16px, 5vw, 80px)',
+        paddingLeft: 'clamp(20px, 5vw, 80px)',
+        paddingRight: 'clamp(20px, 5vw, 80px)',
         maxWidth: '1600px'
       }}
     >

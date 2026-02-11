@@ -41,7 +41,7 @@ const BlogList = () => {
   );
 
   return (
-    <div style={{ backgroundColor: '#F2F2F2', minHeight: '100vh', padding: '120px 0' }}>
+    <div style={{ backgroundColor: '#F2F2F2', minHeight: '100vh', padding: '80px 0 md:padding:120px 0' }} className="py-20 md:py-32">
       <Helmet>
         <title>Insights & Stories | Textura Digital Strategy</title>
         <meta name="description" content="Explore the latest trends in content management, SEO optimization, and digital growth strategy from the Textura editorial team." />
@@ -55,51 +55,25 @@ const BlogList = () => {
       </Helmet>
       
       <Container>
-        <div style={{ maxWidth: '800px', marginBottom: '80px' }}>
-          <h1 style={{ 
+        <div className="mb-12 md:mb-20 max-w-3xl">
+          <h1 className="font-extrabold text-black leading-tight md:leading-none mb-6 md:mb-8 tracking-tighter" style={{ 
             fontFamily: "'Inter Tight', sans-serif", 
-            fontSize: 'clamp(3rem, 8vw, 6rem)', 
-            fontWeight: '800', 
-            lineHeight: '0.9', 
-            marginBottom: '32px', 
-            letterSpacing: '-0.04em',
-            color: '#000000'
+            fontSize: 'clamp(2.5rem, 8vw, 6rem)', 
           }}>
             Insights &<br/>Stories.
           </h1>
-          <p style={{ 
-            fontSize: '22px', 
-            lineHeight: '1.5', 
-            color: '#4B5563', 
-            fontWeight: '500', 
+          <p className="text-xl md:text-2xl text-gray-600 font-medium max-w-lg leading-relaxed" style={{ 
             fontFamily: "'Inter Tight', sans-serif",
-            maxWidth: '540px'
           }}>
             Documenting the future of digital content management and strategy.
           </p>
         </div>
 
-        <div style={{ 
-          display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fill, minmax(400px, 1fr))', 
-          gap: '32px' 
-        }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {blogs.map(blog => (
             <Link key={blog._id} to={`/blog/${blog.slug}`} style={{ textDecoration: 'none' }} className="group">
-              <div style={{ 
-                backgroundColor: '#FFFFFF',
-                borderRadius: '40px',
-                padding: '24px',
-                height: '100%',
-                transition: 'transform 0.4s cubic-bezier(0.2, 1, 0.3, 1), box-shadow 0.4s',
-                border: '1px solid transparent'
-              }} className="hover:-translate-y-2 hover:shadow-2xl hover:border-gray-100">
-                <div style={{ 
-                  height: '320px', 
-                  borderRadius: '24px', 
-                  overflow: 'hidden',
-                  marginBottom: '32px'
-                }}>
+              <div className="bg-white rounded-4xl p-6 h-full transition-all duration-400 border border-transparent hover:-translate-y-2 hover:shadow-2xl hover:border-gray-100">
+                <div className="h-64 md:h-80 rounded-2xl md:rounded-3xl overflow-hidden mb-8">
                   <img 
                     src={blog.featuredImage || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643'} 
                     alt={blog.title}
