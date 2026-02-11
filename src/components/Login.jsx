@@ -43,9 +43,23 @@ const Login = ({ onClose, onSwitchToSignup }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-1000 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-      <div className="bg-white rounded-3xl w-full max-w-md shadow-2xl relative overflow-hidden p-8 md:p-12">
-        <button onClick={onClose} className="absolute top-4 right-4 md:top-6 md:right-6 text-gray-400 hover:text-black transition-colors p-2">
+    <div className="fixed inset-0 z-1000 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm" style={{ zIndex: 1000, backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)' }}>
+      <div 
+        className="bg-white rounded-3xl w-full max-w-md shadow-2xl relative overflow-hidden p-8 md:p-12"
+        style={{ 
+          padding: '48px', 
+          backgroundColor: '#FFFFFF', 
+          borderRadius: '24px',
+          maxWidth: '450px',
+          width: '100%',
+          position: 'relative'
+        }}
+      >
+        <button 
+          onClick={onClose} 
+          className="absolute top-4 right-4 md:top-6 md:right-6 text-gray-400 hover:text-black transition-colors p-2"
+          style={{ position: 'absolute', top: '24px', right: '24px', padding: '8px', border: 'none', backgroundColor: 'transparent', cursor: 'pointer' }}
+        >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
         
