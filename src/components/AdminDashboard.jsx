@@ -122,28 +122,23 @@ const AdminDashboard = ({ onClose }) => {
     const currentToken = localStorage.getItem('token');
     
     if (!currentToken) {
-      setError('❌ AUTH ERROR: No session found. Please log in again.');
+      setError('❌ No token found. Please log in.');
       return;
     }
 
-    // Basic Client-side Validation
-    if (!currentBlog.title || !currentBlog.content || !currentBlog.slug) {
-      setError('❌ VALIDATION ERROR: Title, Content, and Slug are required.');
-      return;
-    }
-
+    const { _id, __v, createdAt, updatedAt, ...payload } = currentBlog;
+    const url = editMode ? `/api/admin/blogs/${_id}` : '/api/admin/blogs';
     const method = editMode ? 'PUT' : 'POST';
-    const url = editMode ? `/api/admin/blogs/${currentBlog._id}` : '/api/admin/blogs';
 
-    setLoading(true); // Show loading state during submit
+    setLoading(true);
     try {
       const response = await fetch(url, {
         method,
         headers: {
           'Content-Type': 'application/json',
-          'authorization': currentToken
+          'Authorization': currentToken
         },
-        body: JSON.stringify(currentBlog)
+        body: JSON.stringify(payload)
       });
 
       const data = await response.json();
@@ -151,31 +146,12 @@ const AdminDashboard = ({ onClose }) => {
       if (response.ok) {
         await fetchData();
         resetBlogForm();
-        alert('Success! Blog post saved.');
+        alert(editMode ? 'Blog updated successfully!' : 'Blog published successfully!');
       } else {
-        // Detailed Error Parsing
-        let msg = 'Unknown Error';
-        if (data.error) {
-          if (Array.isArray(data.error)) {
-            // Likely Zod/Validation array
-            msg = data.error.map(err => `${err.path?.join('.') || 'Error'}: ${err.message}`).join(' | ');
-          } else if (typeof data.error === 'object') {
-            msg = data.message || JSON.stringify(data.error);
-          } else {
-            msg = data.error;
-          }
-        }
-        
-        setError(`❌ SERVER ERROR (${response.status}): ${msg}`);
-        console.error('Full Error Object from Server:', data);
-
-        if (response.status === 401) {
-          setError('❌ UNAUTHORIZED: Your token was rejected. Try logging out and in again.');
-        }
+        setError(`Error ${response.status}: ${data.error || 'Operation failed'}`);
       }
     } catch (err) {
-      setError('❌ NETWORK ERROR: Failed to reach the server. Is it running on localhost:3000?');
-      console.error('Fetch exception:', err);
+      setError('Connection error. Is the server running?');
     } finally {
       setLoading(false);
     }
@@ -285,7 +261,7 @@ const AdminDashboard = ({ onClose }) => {
               <form onSubmit={handleSliderSubmit} className="grid grid-cols-1 md:grid-cols-2" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '32px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                   <div>
-                    <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px', fontSize: '14px' }}>Slider Title</label>
+                    <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px', fontSize: '14px' }}>Slider Title *</label>
                     <input
                       type="text"
                       required
@@ -297,7 +273,7 @@ const AdminDashboard = ({ onClose }) => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px', fontSize: '14px' }}>Badge Text</label>
+                    <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px', fontSize: '14px' }}>Badge Text *</label>
                     <input
                       type="text"
                       required
@@ -309,7 +285,7 @@ const AdminDashboard = ({ onClose }) => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px', fontSize: '14px' }}>Label (Tag)</label>
+                    <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px', fontSize: '14px' }}>Label (Tag) *</label>
                     <input
                       type="text"
                       required
@@ -321,7 +297,7 @@ const AdminDashboard = ({ onClose }) => {
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                   <div>
-                    <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px', fontSize: '14px' }}>Image URL</label>
+                    <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px', fontSize: '14px' }}>Image URL *</label>
                     <input
                       type="url"
                       required
@@ -331,7 +307,7 @@ const AdminDashboard = ({ onClose }) => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px', fontSize: '14px' }}>Button Text</label>
+                    <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px', fontSize: '14px' }}>Button Text *</label>
                     <input
                       type="text"
                       required
@@ -341,7 +317,7 @@ const AdminDashboard = ({ onClose }) => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px', fontSize: '14px' }}>Description</label>
+                    <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px', fontSize: '14px' }}>Description *</label>
                     <textarea
                       required
                       rows="3"
@@ -391,13 +367,15 @@ const AdminDashboard = ({ onClose }) => {
           <>
             {/* Blog Form */}
             <div className="bg-white shadow-sm border border-gray-100" style={{ padding: '48px', backgroundColor: '#FFFFFF', borderRadius: '24px', marginBottom: '64px', border: '1px solid #E5E7EB' }}>
-              <h3 className="text-xl font-semibold text-pure-black" style={{ fontSize: '24px', marginBottom: '40px', color: '#000000' }}>{editMode ? 'Edit Blog Post' : 'Write New Blog Post'}</h3>
+              <h3 className="text-xl font-semibold text-pure-black" style={{ fontSize: '24px', marginBottom: '40px', color: '#000000' }}>
+                {editMode ? 'Edit Blog Post' : 'Write New Blog Post'}
+              </h3>
               {error && <div style={{ marginBottom: '24px', padding: '16px', backgroundColor: '#FEF2F2', color: '#DC2626', borderRadius: '12px', fontSize: '14px', border: '1px solid #FEE2E2' }}>{error}</div>}
               
               <form onSubmit={handleBlogSubmit} className="space-y-8" style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
                   <div>
-                    <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px' }}>Blog Title</label>
+                    <label className="block text-sm font-medium" style={{ color: '#4D4D4D', marginBottom: '8px' }}>Blog Title *</label>
                     <input
                       type="text"
                       required
@@ -510,7 +488,12 @@ const AdminDashboard = ({ onClose }) => {
                     </div>
                   </div>
                   <div style={{ display: 'flex', gap: '12px' }}>
-                    <button onClick={() => { setCurrentBlog(b); setEditMode(true); window.scrollTo({ top: 0, behavior: 'smooth' }); }} style={{ padding: '8px 20px', borderRadius: '8px', border: '1px solid #E5E7EB', cursor: 'pointer', backgroundColor: '#FFF' }}>Edit</button>
+                    <button 
+                      onClick={() => { setCurrentBlog(b); setEditMode(true); window.scrollTo({ top: 0, behavior: 'smooth' }); }} 
+                      style={{ padding: '8px 20px', borderRadius: '8px', border: '1px solid #E5E7EB', cursor: 'pointer', backgroundColor: '#FFF' }}
+                    >
+                      Edit
+                    </button>
                     <button onClick={() => handleDeleteBlog(b._id)} style={{ padding: '8px 20px', borderRadius: '8px', border: 'none', backgroundColor: '#FEF2F2', color: '#DC2626', cursor: 'pointer' }}>Delete</button>
                   </div>
                 </div>
